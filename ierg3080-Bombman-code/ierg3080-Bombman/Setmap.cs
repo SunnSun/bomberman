@@ -25,6 +25,7 @@ namespace ierg3080_Bombman
     public partial class MainWindow
     {
         //testing
+        //testing message 2
         public uint GridSize = 20; // size of the food and snake's body
         public uint XGridNum, YGridNum;
         Brush BodyBrush = new SolidColorBrush(Colors.Black);
