@@ -22,10 +22,12 @@ namespace ierg3080_Bombman
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     //yoyo
+    //hihi
     public partial class MainWindow
     {
         //testing
         //testing message 2
+        //testing message 3
         public uint GridSize = 20; // size of the food and snake's body
         public uint XGridNum, YGridNum;
         Brush BodyBrush = new SolidColorBrush(Colors.Black);
