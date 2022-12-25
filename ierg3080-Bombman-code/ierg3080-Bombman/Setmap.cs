@@ -21,8 +21,7 @@ namespace ierg3080_Bombman
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    //yoyo
-    //hihi
+    //hi sun
     public partial class MainWindow
     {
         //testing
