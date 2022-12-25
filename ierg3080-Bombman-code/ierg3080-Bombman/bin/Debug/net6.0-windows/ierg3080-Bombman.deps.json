@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "ierg3080-Bombman/1.0.0": {
+        "runtime": {
+          "ierg3080-Bombman.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ierg3080-Bombman/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
