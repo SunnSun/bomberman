@@ -21,13 +21,8 @@ namespace ierg3080_Bombman
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    //hi sun
     public partial class MainWindow
     {
-        //testing
-        //testing message 2
-        //testing message 3
-        //testing message 4
         public uint GridSize = 20; // size of the food and snake's body
         public uint XGridNum, YGridNum;
         Brush BodyBrush = new SolidColorBrush(Colors.Black);
@@ -131,7 +126,7 @@ namespace ierg3080_Bombman
                     Tag = "breakablewall",
                     Height = GridSize,
                     Width = GridSize,
-                    Fill = FoodBrush
+                    Fill = Brushes.Gray
                 };
 
                 Canvas.SetLeft(breakablewall, location.X);

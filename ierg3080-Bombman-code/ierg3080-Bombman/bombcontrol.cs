@@ -66,7 +66,7 @@ namespace ierg3080_Bombman
                 Tag = "blast",
                 Height = 20,
                 Width = 20,
-                Fill = Brushes.Green
+                Fill = Brushes.Red
             };
             Canvas.SetLeft(blast, Canvas.GetLeft(bomb)-5);
             Canvas.SetTop(blast, Canvas.GetTop(bomb)-7);
