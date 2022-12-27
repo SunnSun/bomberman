@@ -102,8 +102,8 @@ namespace ierg3080_Bombman
             }
         public void randomwallgenerate()
         {
-            int wallNum = rand.Next(70, 110);
-            for (int i = 0; i < wallNum; i++)
+            //int wallNum = rand.Next(70, 110);
+            for (int i = 0; i < 100; i++)
             {
                 Point location = new Point();
                 bool IsValidLocation = false;
@@ -112,11 +112,11 @@ namespace ierg3080_Bombman
                 {
                     location.X = rand.Next(0, (int)XGridNum) * GridSize;
                     location.Y = rand.Next(0, (int)YGridNum) * GridSize;
-                    while (map[(int)location.X][(int)location.Y] != ' ')
+                   /* while (map[(int)location.X][(int)location.Y] != ' ')
                     {
                         location.X = rand.Next(0, (int)XGridNum) * GridSize;
                         location.Y = rand.Next(0, (int)YGridNum) * GridSize;
-                    }
+                    }*/
 
                     IsValidLocation = true;
 
@@ -142,9 +142,9 @@ namespace ierg3080_Bombman
                 Canvas.SetTop(breakablewall, location.Y);
 
                 GameCanvas.Children.Add(breakablewall);
-                StringBuilder sb = new StringBuilder(map[(int)location.X]);
+                /*StringBuilder sb = new StringBuilder(map[(int)location.X]);
                 sb[(int)location.Y] = 'B';
-                map[(int)location.X] = sb.ToString();
+                map[(int)location.X] = sb.ToString();*/
             }
             
         }
