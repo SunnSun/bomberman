@@ -72,8 +72,8 @@ namespace ierg3080_Bombman
                     GameCanvas.Children.Add(Bomb);
                     togglebomb = true;
                     CurrentCountdown = SpawnCountdown;
-                    blasting(Bomb);
-
+                    //blasting(Bomb);
+                    
                 }
             }
 
@@ -184,7 +184,7 @@ namespace ierg3080_Bombman
             {
                 Bombexplode();
             }
-            if(toggleblast)
+            if(toggleblast == false)
             {
                 blastremove();
             }
@@ -195,7 +195,10 @@ namespace ierg3080_Bombman
             }
             foreach (Ellipse y in EllipsesToRemove)
             {
-                
+                if(toggleblast)
+                {
+                        blasting(y);
+                }
                 GameCanvas.Children.Remove(y);
             }
 

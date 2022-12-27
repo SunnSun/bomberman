@@ -53,7 +53,6 @@ namespace ierg3080_Bombman
             CurrentCountdown2 -= 1;
             if (CurrentCountdown2 < 15)
             {
-                toggleblast = false;
 
                 foreach (var y in GameCanvas.Children.OfType<Rectangle>())
                 {
@@ -77,7 +76,15 @@ namespace ierg3080_Bombman
                     Canvas.SetTop(blast, Canvas.GetTop(bomb) - 7);
 
                     GameCanvas.Children.Add(blast);
-              
+                    toggleblast = false;
+        }
+
+        private void passbomb(Ellipse bomb)
+        {
+            if(CurrentCountdown<15)
+            {
+                blasting(bomb);
+            }
         }
     }
 }

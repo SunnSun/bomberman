@@ -21,6 +21,7 @@ namespace ierg3080_Bombman
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    /// Hi Stanley
     public partial class MainWindow
     {
         public uint GridSize = 20; // size of the food and snake's body
