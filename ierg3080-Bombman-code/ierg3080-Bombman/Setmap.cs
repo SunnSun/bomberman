@@ -26,6 +26,7 @@ namespace ierg3080_Bombman
     {
         public uint GridSize = 20; // size of the food and snake's body
         public uint XGridNum, YGridNum;
+        string[] map = new string[25];
         Brush BodyBrush = new SolidColorBrush(Colors.Black);
         Brush FoodBrush = new SolidColorBrush(Colors.Red);
         Random rand = new Random();
@@ -42,7 +43,7 @@ namespace ierg3080_Bombman
             int playery;
             randomwallclear();
 
-            string[] map = new string[25];
+            
             map[0] = "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww";
             map[1] = "wP                               w";
             map[2] = "w w w w w w w w w w w w w w w w ww";
@@ -101,7 +102,8 @@ namespace ierg3080_Bombman
             }
         public void randomwallgenerate()
         {
-            for (int i = 0; i < 100; i++)
+            int wallNum = rand.Next(70, 110);
+            for (int i = 0; i < wallNum; i++)
             {
                 Point location = new Point();
                 bool IsValidLocation = false;
@@ -110,8 +112,14 @@ namespace ierg3080_Bombman
                 {
                     location.X = rand.Next(0, (int)XGridNum) * GridSize;
                     location.Y = rand.Next(0, (int)YGridNum) * GridSize;
+                    while (map[(int)location.X][(int)location.Y] != ' ')
+                    {
+                        location.X = rand.Next(0, (int)XGridNum) * GridSize;
+                        location.Y = rand.Next(0, (int)YGridNum) * GridSize;
+                    }
 
                     IsValidLocation = true;
+
                     foreach (Rectangle x in GameCanvas.Children)
                     {
                         Point GridLocation = x.TransformToAncestor(GameCanvas).Transform(new Point(0, 0));
@@ -134,6 +142,9 @@ namespace ierg3080_Bombman
                 Canvas.SetTop(breakablewall, location.Y);
 
                 GameCanvas.Children.Add(breakablewall);
+                StringBuilder sb = new StringBuilder(map[(int)location.X]);
+                sb[(int)location.Y] = 'B';
+                map[(int)location.X] = sb.ToString();
             }
             
         }

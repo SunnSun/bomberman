@@ -65,20 +65,28 @@ namespace ierg3080_Bombman
 
         private void blasting()
         {
-
-                    Rectangle blast = new Rectangle
+                    Rectangle blast1 = new Rectangle
                     {
                         Tag = "blast",
-                        Height = 20,
+                        Height = 60,
                         Width = 20,
                         Fill = Brushes.Red
                     };
                     //Canvas.GetLeft(Player) Canvas.GetTop(Player)
-                    Canvas.SetLeft(blast, bombx - 5);
-                    Canvas.SetTop(blast, bomby - 7);
-
+                    Canvas.SetLeft(blast1, bombx-5);
+                    Canvas.SetTop(blast1, bomby - 25);
+                    Rectangle blast = new Rectangle
+                    {
+                        Tag = "blast",
+                        Height = 20,
+                        Width = 60,
+                        Fill = Brushes.Red
+                    };
+                    Canvas.SetLeft(blast, bombx - 25);
+                    Canvas.SetTop(blast, bomby-5);
                     GameCanvas.Children.Add(blast);
-                    toggleblast = false;
+                    GameCanvas.Children.Add(blast1);
+            toggleblast = false;
         }
 
         private void passbomb(Ellipse bomb)
