@@ -195,10 +195,16 @@ namespace ierg3080_Bombman
             foreach (Rectangle x in ItemsToRemove)
             {
                 GameCanvas.Children.Remove(x);
+                //please add the following code, after change bomb to rectangle
+                /*if (toggleblast)
+                {
+                    passbomb(x);
+                }*/
             }
             foreach (Ellipse y in EllipsesToRemove)
             {
                 GameCanvas.Children.Remove(y);
+                //please remove the following code, after change bomb to rectangle
                 if (toggleblast)
                 {
                     passbomb(y);

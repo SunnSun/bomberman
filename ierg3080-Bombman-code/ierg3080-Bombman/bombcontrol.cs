@@ -90,6 +90,7 @@ namespace ierg3080_Bombman
         }
 
         private void passbomb(Ellipse bomb)
+            //please change the Ellipse to rectangle
         {
             if(CurrentCountdown < 15)
             {
