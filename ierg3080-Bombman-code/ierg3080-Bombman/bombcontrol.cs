@@ -62,7 +62,7 @@ namespace ierg3080_Bombman
             }
         }
 
-        private void blasting(Ellipse bomb)
+        private void blasting()
         {
 
                     Rectangle blast = new Rectangle
@@ -72,8 +72,9 @@ namespace ierg3080_Bombman
                         Width = 20,
                         Fill = Brushes.Red
                     };
-                    Canvas.SetLeft(blast, Canvas.GetLeft(bomb) - 5);
-                    Canvas.SetTop(blast, Canvas.GetTop(bomb) - 7);
+                    //Canvas.GetLeft(Player) Canvas.GetTop(Player)
+                    Canvas.SetLeft(blast, bombx - 5);
+                    Canvas.SetTop(blast, bomby - 7);
 
                     GameCanvas.Children.Add(blast);
                     toggleblast = false;
@@ -81,9 +82,9 @@ namespace ierg3080_Bombman
 
         private void passbomb(Ellipse bomb)
         {
-            if(CurrentCountdown<15)
+            if(CurrentCountdown < 15)
             {
-                blasting(bomb);
+                blasting();
             }
         }
     }

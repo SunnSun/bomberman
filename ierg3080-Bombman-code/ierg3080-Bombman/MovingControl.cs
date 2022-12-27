@@ -24,6 +24,7 @@ namespace ierg3080_Bombman
     public partial class MainWindow
     {
         Rect Playerhitboxleft, Playerhitboxright, Playerhitboxup, Playerhitboxdown;
+        double bombx, bomby;
         private void keyreleased(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.W)
@@ -69,6 +70,8 @@ namespace ierg3080_Bombman
                     };
                     Canvas.SetTop(Bomb, Canvas.GetTop(Player) + 5);
                     Canvas.SetLeft(Bomb, Canvas.GetLeft(Player));
+                    bombx = Canvas.GetLeft(Bomb);
+                    bomby = Canvas.GetTop(Bomb);
                     GameCanvas.Children.Add(Bomb);
                     togglebomb = true;
                     CurrentCountdown = SpawnCountdown;
@@ -195,11 +198,11 @@ namespace ierg3080_Bombman
             }
             foreach (Ellipse y in EllipsesToRemove)
             {
-                if(toggleblast)
-                {
-                        blasting(y);
-                }
                 GameCanvas.Children.Remove(y);
+                if (toggleblast)
+                {
+                    passbomb(y);
+                }
             }
 
         }
