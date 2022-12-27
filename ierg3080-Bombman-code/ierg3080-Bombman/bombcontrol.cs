@@ -23,20 +23,24 @@ namespace ierg3080_Bombman
     /// </summary>
     public partial class MainWindow
     {
-        private DispatcherTimer explosiontime;
+        
         int SpawnCountdown = 30;
         int CurrentCountdown;
         int CurrentCountdown2;
         bool togglebomb = false;
         bool toggleblast = false;
+        int blastingpower = 1;
+        public List<Rectangle> BlastGrids = new List<Rectangle>();
 
         private void Bombexplode()
         {
             CurrentCountdown -= 1;
-            if (CurrentCountdown < 1)
+            if (CurrentCountdown < 15)
             {
                 togglebomb = false;
-                
+                toggleblast = true;
+                CurrentCountdown2 = SpawnCountdown;
+
                 foreach (var y in GameCanvas.Children.OfType<Ellipse>())
                 {
                     EllipsesToRemove.Add(y);                   
@@ -44,7 +48,7 @@ namespace ierg3080_Bombman
             }
         }
         
-        private void blastremove()
+        public void blastremove()
         {
             CurrentCountdown2 -= 1;
             if (CurrentCountdown2 < 15)
@@ -61,17 +65,19 @@ namespace ierg3080_Bombman
 
         private void blasting(Ellipse bomb)
         {
-            Rectangle blast = new Rectangle
-            {
-                Tag = "blast",
-                Height = 20,
-                Width = 20,
-                Fill = Brushes.Red
-            };
-            Canvas.SetLeft(blast, Canvas.GetLeft(bomb)-5);
-            Canvas.SetTop(blast, Canvas.GetTop(bomb)-7);
-            
-            GameCanvas.Children.Add(blast);
+
+                    Rectangle blast = new Rectangle
+                    {
+                        Tag = "blast",
+                        Height = 20,
+                        Width = 20,
+                        Fill = Brushes.Red
+                    };
+                    Canvas.SetLeft(blast, Canvas.GetLeft(bomb) - 5);
+                    Canvas.SetTop(blast, Canvas.GetTop(bomb) - 7);
+
+                    GameCanvas.Children.Add(blast);
+              
         }
     }
 }

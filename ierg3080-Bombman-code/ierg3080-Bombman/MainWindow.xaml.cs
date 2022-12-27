@@ -24,11 +24,12 @@ namespace ierg3080_Bombman
     {
 
         bool MoveUp, MoveDown, MoveLeft, MoveRight;
+        bool NoUp = false, NoDown = false, NoLeft = false, NoRight = false;
 
         
 
         DispatcherTimer GameTimer = new DispatcherTimer();
-
+        DispatcherTimer GameTimer2 = new DispatcherTimer();
 
 
         public MainWindow()
@@ -49,10 +50,10 @@ namespace ierg3080_Bombman
         private void Restart_buttonclick(object sender, RoutedEventArgs e)
         {
             GameTimer.Stop();
-            GameTimer.Tick -= GameLoop;
+            //GameTimer.Tick -= GameLoop;
             MapSetup();
             GameCanvas.Focus();
-            GameTimer.Tick += GameLoop;
+            //GameTimer.Tick += GameLoop;
             GameTimer.Interval = TimeSpan.FromMilliseconds(100);
 
             GameTimer.Start();

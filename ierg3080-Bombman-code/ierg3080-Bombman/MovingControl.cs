@@ -29,18 +29,30 @@ namespace ierg3080_Bombman
             if (e.Key == Key.W)
             {
                 MoveUp = false;
+                NoDown = false;
+                NoLeft = false;
+                NoRight = false;
             }
             if (e.Key == Key.S)
             {
                 MoveDown = false;
+                NoUp = false;
+                NoLeft = false;
+                NoRight = false;
             }
             if (e.Key == Key.A)
             {
                 MoveLeft = false;
+                NoDown = false;
+                NoUp = false;
+                NoRight = false;
             }
             if (e.Key == Key.D)
             {
                 MoveRight = false;
+                NoDown = false;
+                NoLeft = false;
+                NoUp = false;
             }
             if (!togglebomb)
             {
@@ -60,6 +72,8 @@ namespace ierg3080_Bombman
                     GameCanvas.Children.Add(Bomb);
                     togglebomb = true;
                     CurrentCountdown = SpawnCountdown;
+                    blasting(Bomb);
+
                 }
             }
 
@@ -67,21 +81,33 @@ namespace ierg3080_Bombman
 
         private void keypressed(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.W)
+            if (e.Key == Key.W && NoUp == false)
             {
                 MoveUp = true;
+                NoDown = true;
+                NoLeft = true;
+                NoRight = true;
             }
-            if (e.Key == Key.S)
+            if (e.Key == Key.S && NoDown == false)
             {
                 MoveDown = true;
+                NoUp = true;
+                NoLeft = true;
+                NoRight = true;
             }
-            if (e.Key == Key.A)
+            if (e.Key == Key.A && NoLeft == false)
             {
                 MoveLeft = true;
+                NoDown = true;
+                NoUp = true;
+                NoRight = true;
             }
-            if (e.Key == Key.D)
+            if (e.Key == Key.D && NoRight == false)
             {
                 MoveRight = true;
+                NoDown = true;
+                NoLeft = true;
+                NoUp = true;
             }
         }
 
@@ -157,24 +183,22 @@ namespace ierg3080_Bombman
             if (togglebomb)
             {
                 Bombexplode();
-                toggleblast = true;
-                CurrentCountdown2 = SpawnCountdown;
             }
             if(toggleblast)
             {
                 blastremove();
             }
 
-            foreach (Rectangle y in ItemsToRemove)
+            foreach (Rectangle x in ItemsToRemove)
             {
-                // remove them permanently from the canvas
-                GameCanvas.Children.Remove(y);
+                GameCanvas.Children.Remove(x);
             }
             foreach (Ellipse y in EllipsesToRemove)
             {
-                blasting(y);
+                
                 GameCanvas.Children.Remove(y);
             }
+
         }
 
     }
