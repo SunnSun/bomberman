@@ -178,7 +178,7 @@ namespace ierg3080_Bombman
                             IsValidLocation = false;
                             break;
                         }
-                        if(location.X == 40 && location.Y == 100)
+                        if(location.X == 40 && location.Y == 120)
                         {
                             IsValidLocation = false;
                             break;

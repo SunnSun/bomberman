@@ -180,6 +180,14 @@ namespace ierg3080_Bombman
                                 enemeymovement = enemeymovement * -1;
                             }
                         }
+                        if ((string)y.Tag == "wall")
+                        {
+                            Rect hitwall = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
+                            if (hitwall.IntersectsWith(hitenemy))
+                            {
+                                enemeymovement = enemeymovement * -1;
+                            }
+                        }
                     }
                 }
             }
