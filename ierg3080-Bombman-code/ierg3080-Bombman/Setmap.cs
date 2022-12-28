@@ -21,7 +21,7 @@ namespace ierg3080_Bombman
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    /// Hi Stanley
+    //B = breakableWall, w = Wall, P = Player, E = ememy 
     public partial class MainWindow
     {
         public uint GridSize = 20; // size of the food and snake's body
@@ -40,11 +40,17 @@ namespace ierg3080_Bombman
             YGridNum = (uint)(GameCanvas.Height / GridSize);
             double InitX = XGridNum / 2;
             double InitY = YGridNum / 2;
-            position.Content = "XGrid: " + XGridNum + "YGrid: " + YGridNum;
+            Random rnd = new Random();
             int playerx;
             int playery;
             randomwallclear();
-            //B = breakableWall, w = Wall, P = Player
+            for(int row = 0; row < 25; row++)
+            {
+                for(int col = 0; col < 34; col++)
+                {
+                    map[row, col] = ' ';
+                }
+            }
             for(int row = 0; row < 25; row++)
             {
                 if(row == 1)
@@ -66,12 +72,16 @@ namespace ierg3080_Bombman
                     {
                         map[row, col] = 'w';
                     }
-                    if (row == 2 && col == 5)
-                    {
-                            map[row, col] = 'x';
-                    }
                 }
             }
+            int x, y;
+            do
+            {
+                x = rnd.Next(1, 23);
+                y = rnd.Next(1, 32);
+
+            } while (map[y,x] != ' ');
+            map[x, y] = 'E';
             /*
             map[0] = "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww";
             map[1] = "wP                               w";
@@ -126,7 +136,7 @@ namespace ierg3080_Bombman
                             Canvas.SetLeft(Player, i * GridSize + 5);
                             Canvas.SetTop(Player, j * GridSize + 1);
                         }
-                    if (map[j, i] == 'x')
+                    if (map[j, i] == 'E')
                     {
                         Rectangle enemy = new Rectangle
                         {
