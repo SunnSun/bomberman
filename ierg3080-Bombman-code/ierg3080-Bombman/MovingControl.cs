@@ -116,6 +116,8 @@ namespace ierg3080_Bombman
             }
         }
 
+        int dir = 0;
+        Random rnd = new Random();
         private void GameLoop(object sender, EventArgs e)
         {
             Playerhitboxleft = new Rect(Canvas.GetLeft(Player) - 5, Canvas.GetTop(Player), Player.Width, Player.Height);
@@ -168,25 +170,25 @@ namespace ierg3080_Bombman
                 }
                 if ((string)x.Tag == "enemy")
                 {
-                    Canvas.SetTop(x, Canvas.GetTop(x)+2*enemeymovement);
+                    if (dir % 2 == 0)
+                        Canvas.SetTop(x, Canvas.GetTop(x) + 2 * enemeymovement);
+                    else
+                        Canvas.SetLeft(x, Canvas.GetLeft(x) + 2 * enemeymovement);
                     Rect hitenemy = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
                     Rect hitenemy1 = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x)-20, x.Width, x.Height+40);
                     foreach (var y in GameCanvas.Children.OfType<Rectangle>())
                     {
-                        if ((string)y.Tag == "breakablewall")
+                        if ((string)y.Tag == "breakablewall" || (string)y.Tag == "wall")
                         {
                             Rect hitbreakableWall = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
                             if(hitbreakableWall.IntersectsWith(hitenemy))
                             {
+                                if (dir % 2 == 0)
+                                    Canvas.SetTop(x, Canvas.GetTop(x) - 2 * enemeymovement);
+                                else
+                                    Canvas.SetLeft(x, Canvas.GetLeft(x) - 2 * enemeymovement);
                                 enemeymovement = enemeymovement * -1;
-                            }
-                        }
-                        if ((string)y.Tag == "wall")
-                        {
-                            Rect hitwall = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
-                            if (hitwall.IntersectsWith(hitenemy))
-                            {
-                                enemeymovement = enemeymovement * -1;
+                                dir = rnd.Next(0, 2);
                             }
                         }
                         if ((string)y.Tag == "blast")
