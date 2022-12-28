@@ -182,7 +182,7 @@ namespace ierg3080_Bombman
             {
                 Canvas.SetLeft(Player, Canvas.GetLeft(Player) - 20);
             }
-            position.Content = "Left: " + Canvas.GetLeft(Player) + " Top: " + Canvas.GetTop(Player);
+
             if (togglebomb)
             {
                 Bombexplode();

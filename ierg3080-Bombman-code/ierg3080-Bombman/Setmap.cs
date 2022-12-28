@@ -161,7 +161,7 @@ namespace ierg3080_Bombman
                     Width = GridSize,
                     Fill = Brushes.Gray
                 };
-                map[(int)location.Y, (int)location.X] = 'B';
+                //map[(int)location.Y, (int)location.X] = 'B';
                 Canvas.SetLeft(breakablewall, location.X);
                 Canvas.SetTop(breakablewall, location.Y);
 
