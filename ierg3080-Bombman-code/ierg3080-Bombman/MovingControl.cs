@@ -170,7 +170,7 @@ namespace ierg3080_Bombman
                 {
                     Canvas.SetTop(x, Canvas.GetTop(x)+2*enemeymovement);
                     Rect hitenemy = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
-                    Rect hitenemy1 = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x)+20, x.Width, x.Height+20);
+                    Rect hitenemy1 = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x)-20, x.Width, x.Height+40);
                     foreach (var y in GameCanvas.Children.OfType<Rectangle>())
                     {
                         if ((string)y.Tag == "breakablewall")
