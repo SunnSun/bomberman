@@ -170,6 +170,7 @@ namespace ierg3080_Bombman
                 {
                     Canvas.SetTop(x, Canvas.GetTop(x)+2*enemeymovement);
                     Rect hitenemy = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
+                    Rect hitenemy1 = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x)+20, x.Width, x.Height+20);
                     foreach (var y in GameCanvas.Children.OfType<Rectangle>())
                     {
                         if ((string)y.Tag == "breakablewall")
@@ -186,6 +187,14 @@ namespace ierg3080_Bombman
                             if (hitwall.IntersectsWith(hitenemy))
                             {
                                 enemeymovement = enemeymovement * -1;
+                            }
+                        }
+                        if ((string)y.Tag == "blast")
+                        {
+                            Rect hitblast = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
+                            if(hitblast.IntersectsWith(hitenemy1))
+                            {
+                                enemeymovement= enemeymovement * -1;
                             }
                         }
                     }
