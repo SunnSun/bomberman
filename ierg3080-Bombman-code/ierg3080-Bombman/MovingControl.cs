@@ -21,6 +21,7 @@ namespace ierg3080_Bombman
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    /// test
     public partial class MainWindow
     {
         Rect Playerhitboxleft, Playerhitboxright, Playerhitboxup, Playerhitboxdown;
