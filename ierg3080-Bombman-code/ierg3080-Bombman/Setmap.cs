@@ -26,7 +26,7 @@ namespace ierg3080_Bombman
     {
         public uint GridSize = 20; // size of the food and snake's body
         public uint XGridNum, YGridNum;
-        string[] map = new string[25];
+        char[,] map = new char[25,34];
         Brush BodyBrush = new SolidColorBrush(Colors.Black);
         Brush FoodBrush = new SolidColorBrush(Colors.Red);
         Random rand = new Random();
@@ -42,8 +42,30 @@ namespace ierg3080_Bombman
             int playerx;
             int playery;
             randomwallclear();
-
-            
+            for(int row = 0; row < 25; row++)
+            {
+                if(row == 1)
+                {
+                    map[row, 0] = 'w';
+                    map[row, 33] = 'w';
+                    map[row, 1] = 'P';
+                }
+                else if(row % 2 == 1){
+                    map[row, 0] = 'w';
+                    map[row, 33] = 'w';
+                }else for(int col = 0; col < 34; col++)
+                {
+                    if (row == 0 || row == 24)
+                    {
+                        map[row, col] = 'w';
+                    }
+                    if (row % 2 == 0 && col % 2 == 0)
+                    {
+                        map[row, col] = 'w';
+                    }
+                }
+            }
+            /*
             map[0] = "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww";
             map[1] = "wP                               w";
             map[2] = "w w w w w w w w w w w w w w w w ww";
@@ -68,13 +90,13 @@ namespace ierg3080_Bombman
             map[21] = "w                                w";
             map[22] = "w w w w w w w w w w w w w w w w ww";
             map[23] = "w                                w";
-            map[24] = "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww";
+            map[24] = "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww";*/
 
             for (int j = 0; j < 25; j++)
                 {
                     for (int i = 0; i < 34; i++)
                     {
-                        if (map[j].ToCharArray()[i] == 'w')
+                        if (map[j,i] == 'w')
                         {
                             Rectangle wall = new Rectangle
                             {
@@ -88,7 +110,7 @@ namespace ierg3080_Bombman
                             Panel.SetZIndex(wall, 1);
                             GameCanvas.Children.Add(wall);
                         }
-                        if (map[j].ToCharArray()[i] == 'P')
+                        if (map[j,i] == 'P')
                         {
                             Player.Width = 10;
                             Player.Height = 18;
@@ -100,10 +122,11 @@ namespace ierg3080_Bombman
                     }
                 }
             }
+
         public void randomwallgenerate()
         {
-            //int wallNum = rand.Next(70, 110);
-            for (int i = 0; i < 100; i++)
+            int wallNum = rand.Next(70, 110);
+            for (int i = 0; i < wallNum; i++)
             {
                 Point location = new Point();
                 bool IsValidLocation = false;
@@ -133,11 +156,12 @@ namespace ierg3080_Bombman
                 Rectangle breakablewall = new Rectangle
                 {
                     Tag = "breakablewall",
+                    Uid = (location.X + location.Y * 34).ToString(),
                     Height = GridSize,
                     Width = GridSize,
                     Fill = Brushes.Gray
                 };
-
+                map[(int)location.Y, (int)location.X] = 'B';
                 Canvas.SetLeft(breakablewall, location.X);
                 Canvas.SetTop(breakablewall, location.Y);
 

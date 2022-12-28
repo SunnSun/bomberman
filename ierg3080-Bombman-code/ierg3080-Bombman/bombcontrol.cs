@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -54,11 +55,12 @@ namespace ierg3080_Bombman
             CurrentCountdown2 -= 1;
             if (CurrentCountdown2 < 15)
             {
-
                 foreach (var y in GameCanvas.Children.OfType<Rectangle>())
                 {
                     if((string)y.Tag == "blast")
+                    { 
                         ItemsToRemove.Add(y);
+                    }
                 }
             }
         }
@@ -68,24 +70,34 @@ namespace ierg3080_Bombman
                     Rectangle blast1 = new Rectangle
                     {
                         Tag = "blast",
-                        Height = 60,
+                        Height = blastingpower*40+20,
                         Width = 20,
                         Fill = Brushes.Red
                     };
                     //Canvas.GetLeft(Player) Canvas.GetTop(Player)
                     Canvas.SetLeft(blast1, bombx-5);
-                    Canvas.SetTop(blast1, bomby - 25);
+                    Canvas.SetTop(blast1, bomby - blastingpower*20 - 5);
                     Rectangle blast = new Rectangle
                     {
                         Tag = "blast",
                         Height = 20,
-                        Width = 60,
+                        Width = blastingpower*40+20,
                         Fill = Brushes.Red
                     };
-                    Canvas.SetLeft(blast, bombx - 25);
+                    Canvas.SetLeft(blast, bombx - blastingpower*20 - 5);
                     Canvas.SetTop(blast, bomby-5);
                     GameCanvas.Children.Add(blast);
                     GameCanvas.Children.Add(blast1);
+            /*foreach (Rectangle x in GameCanvas.Children)
+            {
+                if ((string)x.Tag == "breakablewall"
+                    && 
+                    )
+                {
+                    ItemsToRemove.Add(x);
+                }
+            }*/
+
             toggleblast = false;
         }
 
