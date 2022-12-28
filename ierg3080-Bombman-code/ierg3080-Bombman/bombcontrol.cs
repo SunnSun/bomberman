@@ -107,7 +107,7 @@ namespace ierg3080_Bombman
             {
                 if ((string)y.Tag == "breakablewall")
                 {
-                    Rect hitbreakablewall = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), 10, 10);
+                    Rect hitbreakablewall = new Rect(Canvas.GetLeft(y) + 5, Canvas.GetTop(y) + 5, 10, 10);
                     if(hitbreakablewall.IntersectsWith(hitblast))
                     {
                         ItemsToRemove.Add(y);
