@@ -39,9 +39,11 @@ namespace ierg3080_Bombman
             YGridNum = (uint)(GameCanvas.Height / GridSize);
             double InitX = XGridNum / 2;
             double InitY = YGridNum / 2;
+            position.Content = "XGrid: " + XGridNum + "YGrid: " + YGridNum;
             int playerx;
             int playery;
             randomwallclear();
+            //B = breakableWall, w = Wall, P = Player
             for(int row = 0; row < 25; row++)
             {
                 if(row == 1)
@@ -133,14 +135,14 @@ namespace ierg3080_Bombman
 
                 while (!IsValidLocation)
                 {
-                    location.X = rand.Next(0, (int)XGridNum) * GridSize;
-                    location.Y = rand.Next(0, (int)YGridNum) * GridSize;
+                    location.X = rand.Next(1, (int)XGridNum-1) * GridSize;
+                    location.Y = rand.Next(1, (int)YGridNum-1) * GridSize;
                    /* while (map[(int)location.X][(int)location.Y] != ' ')
                     {
                         location.X = rand.Next(0, (int)XGridNum) * GridSize;
                         location.Y = rand.Next(0, (int)YGridNum) * GridSize;
                     }*/
-
+                   
                     IsValidLocation = true;
 
                     foreach (Rectangle x in GameCanvas.Children)
@@ -162,6 +164,11 @@ namespace ierg3080_Bombman
                             IsValidLocation = false;
                             break;
                         }
+                        if(map[(int)location.Y/20,(int)location.X/20] == 'B')
+                        {
+                            IsValidLocation = false;
+                            break;
+                        }
                          
                     }
                 }
@@ -173,7 +180,8 @@ namespace ierg3080_Bombman
                     Width = GridSize,
                     Fill = Brushes.Gray
                 };
-                //map[(int)location.Y, (int)location.X] = 'B';
+                position.Content = "X: " + location.X + "Y: " + location.Y;
+                map[(int)location.Y/20, (int)location.X/20] = 'B';
                 Canvas.SetLeft(breakablewall, location.X);
                 Canvas.SetTop(breakablewall, location.Y);
 
