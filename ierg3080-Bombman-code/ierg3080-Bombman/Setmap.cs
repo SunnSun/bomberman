@@ -128,6 +128,18 @@ namespace ierg3080_Bombman
                             IsValidLocation = false;
                             break;
                         }
+                        
+                        if(location.X == 40 && location.Y == 20)
+                        {
+                            IsValidLocation = false;
+                            break;
+                        }
+                        if(location.X == 20 && location.Y == 40)
+                        {
+                            IsValidLocation = false;
+                            break;
+                        }
+                         
                     }
                 }
                 Rectangle breakablewall = new Rectangle
