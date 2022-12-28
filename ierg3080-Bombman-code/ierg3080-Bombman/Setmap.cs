@@ -28,6 +28,7 @@ namespace ierg3080_Bombman
         public uint XGridNum, YGridNum;
         char[,] map = new char[25,34];
         Brush BodyBrush = new SolidColorBrush(Colors.Black);
+        Brush EnemeyBrush = new SolidColorBrush(Colors.DarkRed);
         Brush FoodBrush = new SolidColorBrush(Colors.Red);
         Random rand = new Random();
         List<Rectangle> ItemsToRemove = new List<Rectangle>();
@@ -64,6 +65,10 @@ namespace ierg3080_Bombman
                     if (row % 2 == 0 && col % 2 == 0)
                     {
                         map[row, col] = 'w';
+                    }
+                    if (row == 2 && col == 5)
+                    {
+                            map[row, col] = 'x';
                     }
                 }
             }
@@ -121,7 +126,21 @@ namespace ierg3080_Bombman
                             Canvas.SetLeft(Player, i * GridSize + 5);
                             Canvas.SetTop(Player, j * GridSize + 1);
                         }
+                    if (map[j, i] == 'x')
+                    {
+                        Rectangle enemy = new Rectangle
+                        {
+                            Tag = "enemy",
+                            Height = 10,
+                            Width = 10,
+                            Fill = EnemeyBrush
+                        };
+                        Canvas.SetLeft(enemy, i * GridSize + 5);
+                        Canvas.SetTop(enemy, j * GridSize + 5);
+                        Panel.SetZIndex(enemy, 1);
+                        GameCanvas.Children.Add(enemy);
                     }
+                }
                 }
             }
 
@@ -154,12 +173,12 @@ namespace ierg3080_Bombman
                             break;
                         }
                         
-                        if(location.X == 40 && location.Y == 20)
+                        if((location.X == 40 && location.Y == 20) || (location.X == 20 && location.Y == 40))
                         {
                             IsValidLocation = false;
                             break;
                         }
-                        if(location.X == 20 && location.Y == 40)
+                        if(location.X == 40 && location.Y == 100)
                         {
                             IsValidLocation = false;
                             break;

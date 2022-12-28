@@ -26,6 +26,7 @@ namespace ierg3080_Bombman
     {
         Rect Playerhitboxleft, Playerhitboxright, Playerhitboxup, Playerhitboxdown;
         double bombx, bomby;
+        int enemeymovement = 1;
         private void keyreleased(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.W)
@@ -163,6 +164,22 @@ namespace ierg3080_Bombman
                     if (Playerhitboxdown.IntersectsWith(hitbreakableWall))
                     {
                         MoveDown = false;
+                    }
+                }
+                if ((string)x.Tag == "enemy")
+                {
+                    Canvas.SetTop(x, Canvas.GetTop(x)+2*enemeymovement);
+                    Rect hitenemy = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
+                    foreach (var y in GameCanvas.Children.OfType<Rectangle>())
+                    {
+                        if ((string)y.Tag == "breakablewall")
+                        {
+                            Rect hitbreakableWall = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
+                            if(hitbreakableWall.IntersectsWith(hitenemy))
+                            {
+                                enemeymovement = enemeymovement * -1;
+                            }
+                        }
                     }
                 }
             }
