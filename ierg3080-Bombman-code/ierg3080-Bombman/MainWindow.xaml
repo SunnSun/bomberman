@@ -12,7 +12,7 @@
         </Canvas>
         <Grid HorizontalAlignment="Left" Height="96" Margin="0,504,0,0" VerticalAlignment="Top" Width="800" Background="LightGray">
             <Button x:Name="Restart_button" Content="Restart" HorizontalAlignment="Left" Margin="95,0,0,0" VerticalAlignment="Center" Height="36" Width="74" Click="Restart_buttonclick"/>
-
+            <Label x:Name="position" Content="bomb Position" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="500,0,0,0" Height="50" Width="100"></Label>
         </Grid>
     </Grid>
 
