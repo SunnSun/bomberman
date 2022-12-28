@@ -21,8 +21,6 @@ namespace ierg3080_Bombman
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    /// test1
-    /// test1
     public partial class MainWindow
     {
         
@@ -110,6 +108,14 @@ namespace ierg3080_Bombman
                 {
                     Rect hitbreakablewall = new Rect(Canvas.GetLeft(y) + 5, Canvas.GetTop(y) +5, 10, 10);
                     if(hitbreakablewall.IntersectsWith(hitblast))
+                    {
+                        ItemsToRemove.Add(y);
+                    }
+                }
+                if ((string)y.Tag == "enemy")
+                {
+                    Rect hitbreakablewall = new Rect(Canvas.GetLeft(y) + 5, Canvas.GetTop(y) + 5, 10, 10);
+                    if (hitbreakablewall.IntersectsWith(hitblast))
                     {
                         ItemsToRemove.Add(y);
                     }

@@ -79,8 +79,7 @@ namespace ierg3080_Bombman
             {
                 x = rnd.Next(1, 23);
                 y = rnd.Next(1, 32);
-
-            } while (map[y,x] != ' ');
+            } while (map[x,y] != ' ');
             map[x, y] = 'E';
             /*
             map[0] = "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww";
@@ -193,7 +192,7 @@ namespace ierg3080_Bombman
                             IsValidLocation = false;
                             break;
                         }
-                        if(map[(int)location.Y/20,(int)location.X/20] == 'B')
+                        if(map[(int)location.Y/20,(int)location.X/20] != ' ')
                         {
                             IsValidLocation = false;
                             break;
