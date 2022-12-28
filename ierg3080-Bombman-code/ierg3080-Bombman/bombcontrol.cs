@@ -69,26 +69,26 @@ namespace ierg3080_Bombman
                     Rectangle blast1 = new Rectangle
                     {
                         Tag = "blast",
-                        Height = 60,
+                        Height = 20 + blastingpower*40,
                         Width = 20,
                         Fill = Brushes.Red
                     };
                     //Canvas.GetLeft(Player) Canvas.GetTop(Player)
                     Canvas.SetLeft(blast1, bombx-5);
-                    Canvas.SetTop(blast1, bomby - 26);
+                    Canvas.SetTop(blast1, bomby - 20 * blastingpower -6);
                     Rectangle blast = new Rectangle
                     {
                         Tag = "blast",
                         Height = 20,
-                        Width = 60,
+                        Width = 20 + blastingpower * 40,
                         Fill = Brushes.Red
                     };
-                    Canvas.SetLeft(blast, bombx - 25);
+                    Canvas.SetLeft(blast, bombx - 20 * blastingpower - 5);
                     Canvas.SetTop(blast, bomby-6);
                     GameCanvas.Children.Add(blast);
-                    bombdestroywall(Canvas.GetLeft(blast), Canvas.GetTop(blast), 60, 20);
+                    bombdestroywall(Canvas.GetLeft(blast), Canvas.GetTop(blast), 40*blastingpower+20, 20);
                     GameCanvas.Children.Add(blast1);
-                    bombdestroywall(Canvas.GetLeft(blast1), Canvas.GetTop(blast1), 20, 60);
+                    bombdestroywall(Canvas.GetLeft(blast1), Canvas.GetTop(blast1), 20, 40 * blastingpower + 20);
             toggleblast = false;
         }
 
