@@ -74,7 +74,7 @@ namespace ierg3080_Bombman
                     };
                     //Canvas.GetLeft(Player) Canvas.GetTop(Player)
                     Canvas.SetLeft(blast1, bombx-5);
-                    Canvas.SetTop(blast1, bomby - 25);
+                    Canvas.SetTop(blast1, bomby - 26);
                     Rectangle blast = new Rectangle
                     {
                         Tag = "blast",
@@ -83,9 +83,11 @@ namespace ierg3080_Bombman
                         Fill = Brushes.Red
                     };
                     Canvas.SetLeft(blast, bombx - 25);
-                    Canvas.SetTop(blast, bomby-5);
+                    Canvas.SetTop(blast, bomby-6);
                     GameCanvas.Children.Add(blast);
+                    bombdestroywall(Canvas.GetLeft(blast), Canvas.GetTop(blast), 60, 20);
                     GameCanvas.Children.Add(blast1);
+                    bombdestroywall(Canvas.GetLeft(blast1), Canvas.GetTop(blast1), 20, 60);
             toggleblast = false;
         }
 
@@ -95,6 +97,22 @@ namespace ierg3080_Bombman
             if(CurrentCountdown < 15)
             {
                 blasting();
+            }
+        }
+
+        private void bombdestroywall(double wallx, double wally, int width, int height)
+        {
+            Rect hitblast = new Rect(wallx, wally, width, height);
+            foreach(var y in GameCanvas.Children.OfType<Rectangle>())
+            {
+                if ((string)y.Tag == "breakablewall")
+                {
+                    Rect hitbreakablewall = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), 10, 10);
+                    if(hitbreakablewall.IntersectsWith(hitblast))
+                    {
+                        ItemsToRemove.Add(y);
+                    }
+                }
             }
         }
     }
