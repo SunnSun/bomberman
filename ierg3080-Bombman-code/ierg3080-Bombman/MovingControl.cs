@@ -25,6 +25,9 @@ namespace ierg3080_Bombman
     public partial class MainWindow
     {
         int playerLife = 100;
+        bool playerWithKey = false;
+        int blastingpower = 1;
+        int bombmaximum = 1;
         Rect Playerhitboxleft, Playerhitboxright, Playerhitboxup, Playerhitboxdown;
         double bombx, bomby;
         int enemeymovement = 1;
@@ -205,6 +208,7 @@ namespace ierg3080_Bombman
                 if((string)x.Tag == "player"){
                     Rect hitplayer = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
                     foreach(var y in GameCanvas.Children.OfType<Rectangle>()){
+                        //player hit blast
                         if((string)y.Tag == "blast"){
                             Rect hitblast = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
                             if(hitblast.IntersectsWith(hitplayer)){
@@ -212,6 +216,7 @@ namespace ierg3080_Bombman
                                 Life.Content = playerLife;
                             }
                         }
+                        //player hit enemy
                         if((string)y.Tag == "enemy"){
                             Rect hitenemy = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
                             if(hitenemy.IntersectsWith(hitplayer)){
@@ -219,6 +224,38 @@ namespace ierg3080_Bombman
                                 Life.Content = playerLife;
                             }
                         }
+                        //player hit key
+                        if((string)y.Tag == "key"){
+                            Rect hitkey = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
+                            if(hitkey.IntersectsWith(hitplayer)){
+                                playerWithKey = true;
+                                ItemsToRemove.Add(y);
+                            }
+                        }
+                        //player hit door
+                        if((string)y.Tag == "door"){
+                            Rect hitdoor = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
+                            if(hitdoor.IntersectsWith(hitplayer)){
+                                if(playerWithKey){
+                                    //Game Go to Next Level
+                                }
+                            }
+                        }
+                        //player hit bombpowerup
+                        if((string)y.Tag == "bombpowerup"){
+                            Rect hitbombpowerup = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
+                            if(hitbombpowerup.IntersectsWith(hitplayer)){
+                                bombmaximum++;
+                                ItemsToRemove.Add(y);
+                            }
+                        }  
+                        if((string)y.Tag == "blastpowerup"){
+                            Rect hitblastpowerup = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
+                            if(hitblastpowerup.IntersectsWith(hitplayer)){
+                                blastingpower++;
+                                ItemsToRemove.Add(y);
+                            }
+                        }     
                     }
                 }
             }
@@ -257,6 +294,10 @@ namespace ierg3080_Bombman
                     passbomb(x);
                 }
             }
+
+            /*if(playerLife <= 0){
+
+            }*/
         }
 
     }
