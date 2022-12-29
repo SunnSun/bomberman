@@ -41,10 +41,9 @@ namespace ierg3080_Bombman
                 toggleblast = true;
                 CurrentCountdown2 = SpawnCountdown;
 
-                foreach (var y in GameCanvas.Children.OfType<Rectangle>())
+                foreach (var y in GameCanvas.Children.OfType<Ellipse>())
                 {
-                    if ((string)y.Tag == "Bomb")
-                        ItemsToRemove.Add(y);
+                    EllipsesToRemove.Add(y);
                 }
             }
         }
@@ -130,7 +129,7 @@ namespace ierg3080_Bombman
         //test
 
 
-        private void passbomb(Rectangle bomb)
+        private void passbomb(Ellipse bomb)
         //please change the Ellipse to rectangle
         {
             if (CurrentCountdown < 15)

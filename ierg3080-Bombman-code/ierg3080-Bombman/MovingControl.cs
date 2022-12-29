@@ -64,12 +64,13 @@ namespace ierg3080_Bombman
             {
                 if (e.Key == Key.Space)
                 {
-                    Rectangle Bomb = new Rectangle
+                    Ellipse Bomb = new Ellipse
                     {
                         Tag = "Bomb",
                         Height = 10,
                         Width = 10,
-
+                        Stroke = Brushes.Black,
+                        StrokeThickness = 1,
                         Fill = Brushes.Blue
                     };
                     Canvas.SetTop(Bomb, Canvas.GetTop(Player) + 5);
@@ -303,19 +304,20 @@ namespace ierg3080_Bombman
             {
                 GameCanvas.Children.Remove(x);
                 //please add the following code, after change bomb to rectangle
-                if (toggleblast)
+                /*if (toggleblast)
                 {
-                    passbomb(x);
-                }
+                    if((string)x.Tag == "Bomb")
+                        passbomb(x);
+                }*/
             }
             foreach (Ellipse y in EllipsesToRemove)
             {
                 GameCanvas.Children.Remove(y);
                 //please remove the following code, after change bomb to rectangle
-                /*if (toggleblast)
+                if (toggleblast)
                 {
                     passbomb(y);
-                }*/
+                }
             }
 
         }
