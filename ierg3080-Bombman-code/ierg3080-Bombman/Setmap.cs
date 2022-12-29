@@ -26,12 +26,13 @@ namespace ierg3080_Bombman
     {
         public uint GridSize = 20; // size of the food and snake's body
         public uint XGridNum, YGridNum;
-        char[,] map = new char[25,34];
+        char[,] map = new char[25, 34];
         Brush BodyBrush = new SolidColorBrush(Colors.Black);
         Brush EnemeyBrush = new SolidColorBrush(Colors.DarkRed);
         Brush FoodBrush = new SolidColorBrush(Colors.Red);
         Random rand = new Random();
         List<Rectangle> ItemsToRemove = new List<Rectangle>();
+        List<Ellipse> EllipsesToRemove = new List<Ellipse>();
 
         public void MapSetup()
         {
@@ -43,42 +44,44 @@ namespace ierg3080_Bombman
             int playerx;
             int playery;
             randomwallclear();
-            for(int row = 0; row < 25; row++)
+            for (int row = 0; row < 25; row++)
             {
-                for(int col = 0; col < 34; col++)
+                for (int col = 0; col < 34; col++)
                 {
                     map[row, col] = ' ';
                 }
             }
-            for(int row = 0; row < 25; row++)
+            for (int row = 0; row < 25; row++)
             {
-                if(row == 1)
+                if (row == 1)
                 {
                     map[row, 0] = 'w';
                     map[row, 33] = 'w';
                     map[row, 1] = 'P';
                 }
-                else if(row % 2 == 1){
+                else if (row % 2 == 1)
+                {
                     map[row, 0] = 'w';
                     map[row, 33] = 'w';
-                }else for(int col = 0; col < 34; col++)
-                {
-                    if (row == 0 || row == 24)
-                    {
-                        map[row, col] = 'w';
-                    }
-                    if (row % 2 == 0 && col % 2 == 0)
-                    {
-                        map[row, col] = 'w';
-                    }
                 }
+                else for (int col = 0; col < 34; col++)
+                    {
+                        if (row == 0 || row == 24)
+                        {
+                            map[row, col] = 'w';
+                        }
+                        if (row % 2 == 0 && col % 2 == 0)
+                        {
+                            map[row, col] = 'w';
+                        }
+                    }
             }
             int x, y;
             do
             {
                 x = rnd.Next(1, 23);
                 y = rnd.Next(1, 32);
-            } while (map[x,y] != ' ');
+            } while (map[x, y] != ' ');
             map[x, y] = 'E';
             /*
             map[0] = "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww";
@@ -108,32 +111,32 @@ namespace ierg3080_Bombman
             map[24] = "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww";*/
 
             for (int j = 0; j < 25; j++)
+            {
+                for (int i = 0; i < 34; i++)
                 {
-                    for (int i = 0; i < 34; i++)
+                    if (map[j, i] == 'w')
                     {
-                        if (map[j,i] == 'w')
+                        Rectangle wall = new Rectangle
                         {
-                            Rectangle wall = new Rectangle
-                            {
-                                Tag = "wall",
-                                Height = GridSize,
-                                Width = GridSize,
-                                Fill = BodyBrush
-                            };
-                            Canvas.SetLeft(wall, i * GridSize);
-                            Canvas.SetTop(wall, j * GridSize);
-                            Panel.SetZIndex(wall, 1);
-                            GameCanvas.Children.Add(wall);
-                        }
-                        if (map[j,i] == 'P')
-                        {
-                            Player.Width = 10;
-                            Player.Height = 18;
-                            playerx = i;
-                            playery = j;
-                            Canvas.SetLeft(Player, i * GridSize + 5);
-                            Canvas.SetTop(Player, j * GridSize + 1);
-                        }
+                            Tag = "wall",
+                            Height = GridSize,
+                            Width = GridSize,
+                            Fill = BodyBrush
+                        };
+                        Canvas.SetLeft(wall, i * GridSize);
+                        Canvas.SetTop(wall, j * GridSize);
+                        Panel.SetZIndex(wall, 1);
+                        GameCanvas.Children.Add(wall);
+                    }
+                    if (map[j, i] == 'P')
+                    {
+                        Player.Width = 10;
+                        Player.Height = 18;
+                        playerx = i;
+                        playery = j;
+                        Canvas.SetLeft(Player, i * GridSize + 5);
+                        Canvas.SetTop(Player, j * GridSize + 1);
+                    }
                     if (map[j, i] == 'E')
                     {
                         Rectangle enemy = new Rectangle
@@ -149,8 +152,8 @@ namespace ierg3080_Bombman
                         GameCanvas.Children.Add(enemy);
                     }
                 }
-                }
             }
+        }
 
         public void randomwallgenerate()
         {
@@ -162,14 +165,14 @@ namespace ierg3080_Bombman
 
                 while (!IsValidLocation)
                 {
-                    location.X = rand.Next(1, (int)XGridNum-1) * GridSize;
-                    location.Y = rand.Next(1, (int)YGridNum-1) * GridSize;
-                   /* while (map[(int)location.X][(int)location.Y] != ' ')
-                    {
-                        location.X = rand.Next(0, (int)XGridNum) * GridSize;
-                        location.Y = rand.Next(0, (int)YGridNum) * GridSize;
-                    }*/
-                   
+                    location.X = rand.Next(1, (int)XGridNum - 1) * GridSize;
+                    location.Y = rand.Next(1, (int)YGridNum - 1) * GridSize;
+                    /* while (map[(int)location.X][(int)location.Y] != ' ')
+                     {
+                         location.X = rand.Next(0, (int)XGridNum) * GridSize;
+                         location.Y = rand.Next(0, (int)YGridNum) * GridSize;
+                     }*/
+
                     IsValidLocation = true;
 
                     foreach (Rectangle x in GameCanvas.Children)
@@ -180,23 +183,23 @@ namespace ierg3080_Bombman
                             IsValidLocation = false;
                             break;
                         }
-                        
-                        if((location.X == 40 && location.Y == 20) || (location.X == 20 && location.Y == 40))
+
+                        if ((location.X == 40 && location.Y == 20) || (location.X == 20 && location.Y == 40))
                         {
                             IsValidLocation = false;
                             break;
                         }
-                        if(location.X == 40 && location.Y == 120)
+                        if (location.X == 40 && location.Y == 120)
                         {
                             IsValidLocation = false;
                             break;
                         }
-                        if(map[(int)location.Y/20,(int)location.X/20] != ' ')
+                        if (map[(int)location.Y / 20, (int)location.X / 20] != ' ')
                         {
                             IsValidLocation = false;
                             break;
                         }
-                         
+
                     }
                 }
                 Rectangle breakablewall = new Rectangle
@@ -208,7 +211,7 @@ namespace ierg3080_Bombman
                     Fill = Brushes.Gray
                 };
                 position.Content = "X: " + location.X + "Y: " + location.Y;
-                map[(int)location.Y/20, (int)location.X/20] = 'B';
+                map[(int)location.Y / 20, (int)location.X / 20] = 'B';
                 Canvas.SetLeft(breakablewall, location.X);
                 Canvas.SetTop(breakablewall, location.Y);
 
@@ -217,7 +220,7 @@ namespace ierg3080_Bombman
                 sb[(int)location.Y] = 'B';
                 map[(int)location.X] = sb.ToString();*/
             }
-            
+
         }
         public void randomwallclear()
         {

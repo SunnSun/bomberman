@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -24,12 +23,13 @@ namespace ierg3080_Bombman
     /// </summary>
     public partial class MainWindow
     {
-        
+
         int SpawnCountdown = 30;
         int CurrentCountdown;
         int CurrentCountdown2;
         bool togglebomb = false;
         bool toggleblast = false;
+        int blastingpower = 2;
         public List<Rectangle> BlastGrids = new List<Rectangle>();
 
         private void Bombexplode()
@@ -41,31 +41,30 @@ namespace ierg3080_Bombman
                 toggleblast = true;
                 CurrentCountdown2 = SpawnCountdown;
 
-                foreach (var y in GameCanvas.Children.OfType<Rectangle>())
+                foreach (var y in GameCanvas.Children.OfType<Ellipse>())
                 {
-                    if((string)y.Tag == "bomb")
-                    ItemsToRemove.Add(y);                   
+                    EllipsesToRemove.Add(y);
                 }
             }
         }
-        
+
         public void blastremove()
         {
             CurrentCountdown2 -= 1;
             if (CurrentCountdown2 < 15)
             {
+
                 foreach (var y in GameCanvas.Children.OfType<Rectangle>())
                 {
-                    if((string)y.Tag == "blast")
+                    if ((string)y.Tag == "blast")
                         ItemsToRemove.Add(y);
                 }
             }
         }
-
         private void blasting()
         {
             List<Rectangle> blast = new List<Rectangle>();
-            for(int i = 0; i < blastingpower * 4 + 1; i++)
+            for (int i = 0; i < blastingpower * 4 + 1; i++)
             {
                 Rectangle rec = new Rectangle
                 {
@@ -78,7 +77,7 @@ namespace ierg3080_Bombman
             }
             int dir = 0;
             int count = 1;
-            foreach(Rectangle rec in blast)
+            foreach (Rectangle rec in blast)
             {
                 switch (dir)
                 {
@@ -99,7 +98,7 @@ namespace ierg3080_Bombman
                         Canvas.SetTop(rec, bomby - 6); break;
                 }
                 count++;
-                if(count > blastingpower)
+                if (count > blastingpower)
                 {
                     count = 1;
                     dir++;
@@ -121,16 +120,19 @@ namespace ierg3080_Bombman
                     }
                 }
                 GameCanvas.Children.Add(rec);
-                bombdestroywall(Canvas.GetLeft(rec), Canvas.GetTop(rec), 20, 20);
-                //push again
-            }
 
+
+                bombdestroywall(Canvas.GetLeft(rec), Canvas.GetTop(rec), 20, 20);
+            }
             toggleblast = false;
         }
+        //test
 
-        private void passbomb(Rectangle bomb)
+
+        private void passbomb(Ellipse bomb)
+        //please change the Ellipse to rectangle
         {
-            if(CurrentCountdown < 15)
+            if (CurrentCountdown < 15)
             {
                 blasting();
             }
@@ -139,15 +141,14 @@ namespace ierg3080_Bombman
         private void bombdestroywall(double wallx, double wally, int width, int height)
         {
             Rect hitblast = new Rect(wallx, wally, width, height);
-            foreach(var y in GameCanvas.Children.OfType<Rectangle>())
+            foreach (var y in GameCanvas.Children.OfType<Rectangle>())
             {
                 if ((string)y.Tag == "breakablewall")
                 {
-                    Rect hitbreakablewall = new Rect(Canvas.GetLeft(y) + 5, Canvas.GetTop(y) +5, 10, 10);
-                    if(hitbreakablewall.IntersectsWith(hitblast))
+                    Rect hitbreakablewall = new Rect(Canvas.GetLeft(y) + 5, Canvas.GetTop(y) + 5, 10, 10);
+                    if (hitbreakablewall.IntersectsWith(hitblast))
                     {
                         ItemsToRemove.Add(y);
-                        thingsBehindBlocks(wallx, wally, width, height);
                     }
                 }
                 if ((string)y.Tag == "enemy")
@@ -164,12 +165,12 @@ namespace ierg3080_Bombman
         private void generateKey(double wallx, double wally, int width, int height)
         {
             Rectangle Key = new Rectangle
-                {
-                    Tag = "key",
-                    Height = height,
-                    Width = width,
-                    Fill = Brushes.Blue
-                };
+            {
+                Tag = "key",
+                Height = height,
+                Width = width,
+                Fill = Brushes.Blue
+            };
             Canvas.SetLeft(Key, wallx);
             Canvas.SetTop(Key, wally);
         }
@@ -177,43 +178,42 @@ namespace ierg3080_Bombman
         private void generateDoor(double wallx, double wally, int width, int height)
         {
             Rectangle Door = new Rectangle
-                {
-                    Tag = "door",
-                    Height = height,
-                    Width = width,
-                    Fill = Brushes.Brown
-                };
+            {
+                Tag = "door",
+                Height = height,
+                Width = width,
+                Fill = Brushes.Brown
+            };
             Canvas.SetLeft(Door, wallx);
             Canvas.SetTop(Door, wally);
         }
         private void generateBombPowerUp(double wallx, double wally, int width, int height)
         {
             Rectangle BombPowerUp = new Rectangle
-                {
-                    Tag = "bombpowerup",
-                    Height = height,
-                    Width = width,
-                    Fill = Brushes.Pink
-                };
+            {
+                Tag = "bombpowerup",
+                Height = height,
+                Width = width,
+                Fill = Brushes.Pink
+            };
             Canvas.SetLeft(BombPowerUp, wallx);
             Canvas.SetTop(BombPowerUp, wally);
         }
         private void generateBlastPowerUp(double wallx, double wally, int width, int height)
         {
             Rectangle BlastPowerUp = new Rectangle
-                {
-                    Tag = "blastpowerup",
-                    Height = height,
-                    Width = width,
-                    Fill = Brushes.Green
-                };
+            {
+                Tag = "blastpowerup",
+                Height = height,
+                Width = width,
+                Fill = Brushes.Green
+            };
             Canvas.SetLeft(BlastPowerUp, wallx);
             Canvas.SetTop(BlastPowerUp, wally);
         }
         bool isGeneratedKey, isGeneratedDoor;
         private void thingsBehindBlocks(double wallx, double wally, int width, int height)
         {
-            
             int itemSpawnProbiblity = rand.Next(1, 100);
             if (itemSpawnProbiblity > 80 && itemSpawnProbiblity <= 85 && isGeneratedKey == false)
             {
