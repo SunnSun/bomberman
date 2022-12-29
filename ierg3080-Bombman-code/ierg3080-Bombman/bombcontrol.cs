@@ -213,7 +213,7 @@ namespace ierg3080_Bombman
                 {
                     Tag = "key",
                     Height = height,
-                    Width = weight,
+                    Width = width,
                     Fill = Brushes.Blue
                 };
             Canvas.SetLeft(Key, wallx);
@@ -226,7 +226,7 @@ namespace ierg3080_Bombman
                 {
                     Tag = "door",
                     Height = height,
-                    Width = weight,
+                    Width = width,
                     Fill = Brushes.Brown
                 };
             Canvas.SetLeft(Door, wallx);
@@ -238,8 +238,8 @@ namespace ierg3080_Bombman
                 {
                     Tag = "bombpowerup",
                     Height = height,
-                    Width = weight,
-                    Fill = Brushes.pink
+                    Width = width,
+                    Fill = Brushes.Pink
                 };
             Canvas.SetLeft(BombPowerUp, wallx);
             Canvas.SetTop(BombPowerUp, wally);
@@ -250,12 +250,13 @@ namespace ierg3080_Bombman
                 {
                     Tag = "blastpowerup",
                     Height = height,
-                    Width = weight,
-                    Fill = Brushes.green
+                    Width = width,
+                    Fill = Brushes.Green
                 };
             Canvas.SetLeft(BlastPowerUp, wallx);
             Canvas.SetTop(BlastPowerUp, wally);
         }
+        bool isGeneratedKey, isGeneratedDoor;
         private void thingsBehindBlocks(double wallx, double wally, int width, int height)
         {
             
