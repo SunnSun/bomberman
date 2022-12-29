@@ -104,73 +104,27 @@ namespace ierg3080_Bombman
                     count = 1;
                     dir++;
                 }
+                else
+                {
+                    foreach (var y in GameCanvas.Children.OfType<Rectangle>())
+                    {
+                        if ((string)y.Tag == "wall" || (string)y.Tag == "breakablewall")
+                        {
+                            Rect hitblast = new Rect(Canvas.GetLeft(rec), Canvas.GetTop(rec), 20, 20);
+                            Rect hitbreakablewall = new Rect(Canvas.GetLeft(y) + 5, Canvas.GetTop(y) + 5, 10, 10);
+                            if (hitbreakablewall.IntersectsWith(hitblast))
+                            {
+                                dir++;
+                                count = 1;
+                            }
+                        }
+                    }
+                }
                 GameCanvas.Children.Add(rec);
                 bombdestroywall(Canvas.GetLeft(rec), Canvas.GetTop(rec), 20, 20);
+                //push again
             }
-            //0 = up, 1 = down, 2 = left, 3 = right
-           /* Rectangle blast = new Rectangle
-            {
-                Tag = "blast",
-                Height = 20,
-                Width = 20,
-                Fill = Brushes.Red
-            };
-            Canvas.SetLeft(blast, bombx - 5);
-            Canvas.SetTop(blast, bomby - 6);
-            GameCanvas.Children.Add(blast);
-            bombdestroywall(Canvas.GetLeft(blast), Canvas.GetTop(blast), 20, 20);
-            for (int dir = 0; dir < 4; dir++)
-            {
-                for (int i = 1; i <= blastingpower; i++)
-                {
-                    Rectangle blast1 = new Rectangle
-                    {
-                        Tag = "blast",
-                        Height = 20,
-                        Width = 20,
-                        Fill = Brushes.Red
-                    };
-                    switch (dir)
-                    {
-                        case 0: Canvas.SetLeft(blast, bombx - 5);
-                                Canvas.SetTop(blast, bomby - i*20 - 6); break;
-                        case 1: Canvas.SetLeft(blast, bombx - 5);
-                                Canvas.SetTop(blast, bomby + i * 20 - 6); break;
-                        case 2: Canvas.SetLeft(blast, bombx - i * 20 - 5);
-                                Canvas.SetTop(blast, bomby - 6); break;
-                        case 3: Canvas.SetLeft(blast, bombx + i * 20 - 5);
-                                Canvas.SetTop(blast, bomby - 6); break;
 
-                    }
-                    GameCanvas.Children.Add(blast1);
-                    bombdestroywall(Canvas.GetLeft(blast1), Canvas.GetTop(blast1), 20, 20);
-                    Canvas.SetLeft(blast, bombx - 5);
-                    Canvas.SetTop(blast, bomby - 20 * blastingpower - 6);
-                }
-            }*/
-            /*Rectangle blast1 = new Rectangle
-            {
-                Tag = "blast",
-                Height = 20 + blastingpower * 40,
-                Width = 20,
-                Fill = Brushes.Red
-            };
-            //Canvas.GetLeft(Player) Canvas.GetTop(Player)
-            Canvas.SetLeft(blast1, bombx-5);
-                            Canvas.SetTop(blast1, bomby - 20 * blastingpower -6);
-                            Rectangle blast = new Rectangle
-                            {
-                                Tag = "blast",
-                                Height = 20,
-                                Width = 20 + blastingpower * 40,
-                                Fill = Brushes.Red
-                            };
-            Canvas.SetLeft(blast, bombx - 20 * blastingpower - 5);
-                            Canvas.SetTop(blast, bomby-6);
-                            GameCanvas.Children.Add(blast);
-                            bombdestroywall(Canvas.GetLeft(blast), Canvas.GetTop(blast), 40*blastingpower+20, 20);
-            GameCanvas.Children.Add(blast1);
-                            bombdestroywall(Canvas.GetLeft(blast1), Canvas.GetTop(blast1), 20, 40 * blastingpower + 20);*/
             toggleblast = false;
         }
 
