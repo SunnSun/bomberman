@@ -25,12 +25,12 @@ namespace ierg3080_Bombman
     public partial class MainWindow
     {
         Rect Playerhitboxleft, Playerhitboxright, Playerhitboxup, Playerhitboxdown;
-        double bombx, bomby;
         int enemeymovement = 1;
         int playerLife = 100;
         bool playerWithKey = false;
-        int bombmaximum = 1;
-        private void keyreleased(object sender, KeyEventArgs e)
+        int bombmaximum = 2;
+        bool plantedbomb = false;
+        private async void keyreleased(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.W)
             {
@@ -60,28 +60,28 @@ namespace ierg3080_Bombman
                 NoLeft = false;
                 NoUp = false;
             }
-            if (!togglebomb)
+            if (togglebomb < bombmaximum)
             {
                 if (e.Key == Key.Space)
                 {
-                    Ellipse Bomb = new Ellipse
+                    Rectangle Bomb = new Rectangle
                     {
                         Tag = "Bomb",
-                        Height = 10,
-                        Width = 10,
-                        Stroke = Brushes.Black,
-                        StrokeThickness = 1,
+                        Height = 20,
+                        Width = 20,
+                        //Stroke = Brushes.Black,
+                        //StrokeThickness = 1,
                         Fill = Brushes.Blue
                     };
-                    Canvas.SetTop(Bomb, Canvas.GetTop(Player) + 5);
-                    Canvas.SetLeft(Bomb, Canvas.GetLeft(Player));
-                    bombx = Canvas.GetLeft(Bomb);
-                    bomby = Canvas.GetTop(Bomb);
+                    Canvas.SetTop(Bomb, Canvas.GetTop(Player)-5);
+                    Canvas.SetLeft(Bomb, Canvas.GetLeft(Player)-5);
                     GameCanvas.Children.Add(Bomb);
-                    togglebomb = true;
-                    CurrentCountdown = SpawnCountdown;
-                    //blasting(Bomb);
-
+                    togglebomb++;
+                    await Task.Delay(2000);
+                    Bombexplode(Canvas.GetLeft(Bomb), Canvas.GetTop(Bomb));
+                    blasting(Canvas.GetLeft(Bomb), Canvas.GetTop(Bomb));
+                    await Task.Delay(1000);
+                    blastremove(Canvas.GetLeft(Bomb), Canvas.GetTop(Bomb));
                 }
             }
 
@@ -121,12 +121,13 @@ namespace ierg3080_Bombman
 
         int dir = 0;
         Random rnd = new Random();
-        private void GameLoop(object sender, EventArgs e)
+        private async void GameLoop(object sender, EventArgs e)
         {
-            Playerhitboxleft = new Rect(Canvas.GetLeft(Player) - 5, Canvas.GetTop(Player), Player.Width, Player.Height);
-            Playerhitboxdown = new Rect(Canvas.GetLeft(Player), Canvas.GetTop(Player) + 2, Player.Width, Player.Height);
-            Playerhitboxup = new Rect(Canvas.GetLeft(Player), Canvas.GetTop(Player) - 2, Player.Width, Player.Height);
-            Playerhitboxright = new Rect(Canvas.GetLeft(Player) + 5, Canvas.GetTop(Player), Player.Width, Player.Height);
+
+            Playerhitboxleft = new Rect(Canvas.GetLeft(Player) - 5, Canvas.GetTop(Player), 10, 10);
+            Playerhitboxdown = new Rect(Canvas.GetLeft(Player), Canvas.GetTop(Player) + 5, 10, 10);
+            Playerhitboxup = new Rect(Canvas.GetLeft(Player), Canvas.GetTop(Player) - 5, 10, 10);
+            Playerhitboxright = new Rect(Canvas.GetLeft(Player) + 5, Canvas.GetTop(Player), 10, 10);
 
             foreach (var x in GameCanvas.Children.OfType<Rectangle>())
             {
@@ -169,6 +170,63 @@ namespace ierg3080_Bombman
                     if (Playerhitboxdown.IntersectsWith(hitbreakableWall))
                     {
                         MoveDown = false;
+                    }
+                }
+                if ((string)x.Tag == "bomb")
+                {
+                    Rect hitbomb = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
+                    
+                        
+                            //Rect hitplayer = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
+                            if (hitbomb.IntersectsWith(Playerhitboxleft) ||
+                               hitbomb.IntersectsWith(Playerhitboxright) ||
+                               hitbomb.IntersectsWith(Playerhitboxup) ||
+                               hitbomb.IntersectsWith(Playerhitboxdown))
+                            {
+                                plantedbomb = true;
+                                x.Tag = "plantedbomb";
+                            }
+                        
+                    
+                    foreach (var y in GameCanvas.Children.OfType<Rectangle>())
+                    {
+                        if ((string)y.Tag == "blast")
+                        {
+                            Bombexplode(Canvas.GetLeft(x), Canvas.GetTop(x));
+                            blasting(Canvas.GetLeft(x), Canvas.GetTop(x));
+                            await Task.Delay(1000);
+                            blastremove(Canvas.GetLeft(x), Canvas.GetTop(x));
+                        }
+                    }
+                }
+                if ((string)x.Tag == "plantedbomb" || plantedbomb == true)
+                {
+                    Rect hitplantedbomb = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
+                    if (Playerhitboxleft.IntersectsWith(hitplantedbomb))
+                    {
+                        MoveLeft = false;
+                    }
+                    if (Playerhitboxright.IntersectsWith(hitplantedbomb))
+                    {
+                        MoveRight = false;
+                    }
+                    if (Playerhitboxup.IntersectsWith(hitplantedbomb))
+                    {
+                        MoveUp = false;
+                    }
+                    if (Playerhitboxdown.IntersectsWith(hitplantedbomb))
+                    {
+                        MoveDown = false;
+                    }
+                    foreach (var y in GameCanvas.Children.OfType<Rectangle>())
+                    {
+                        if ((string)y.Tag == "blast")
+                        {
+                            Bombexplode(Canvas.GetLeft(x), Canvas.GetTop(x));
+                            blasting(Canvas.GetLeft(x), Canvas.GetTop(x));
+                            await Task.Delay(1000);
+                            blastremove(Canvas.GetLeft(x), Canvas.GetTop(x));
+                        }
                     }
                 }
                 if ((string)x.Tag == "enemy")
@@ -285,28 +343,36 @@ namespace ierg3080_Bombman
             if (MoveRight == true)
             {
                 Canvas.SetLeft(Player, Canvas.GetLeft(Player) + 20);
+                //map[playery, playerx] = ' ';
+                //map[playery, playerx + 1] = 'P';
             }
             if (MoveDown == true)
             {
                 Canvas.SetTop(Player, Canvas.GetTop(Player) + 20);
+                //map[playery, playerx] = ' ';
+                //map[playery + 1, playerx] = 'P';
             }
             if (MoveUp == true)
             {
                 Canvas.SetTop(Player, Canvas.GetTop(Player) - 20);
+                //map[playery, playerx] = ' ';
+                //map[playery - 1, playerx] = 'P';
             }
             if (MoveLeft == true)
             {
                 Canvas.SetLeft(Player, Canvas.GetLeft(Player) - 20);
+                //map[playery, playerx] = ' ';
+                //map[playery, playerx - 1] = 'P';
             }
             //position.Content = "Left: " + Canvas.GetLeft(Player) + " Top: " + Canvas.GetTop(Player);
-            if (togglebomb)
+            /*if (togglebomb)
             {
                 Bombexplode();
             }
             if (toggleblast == false)
             {
                 blastremove();
-            }
+            }*/
 
             foreach (Rectangle x in ItemsToRemove)
             {
@@ -322,10 +388,10 @@ namespace ierg3080_Bombman
             {
                 GameCanvas.Children.Remove(y);
                 //please remove the following code, after change bomb to rectangle
-                if (toggleblast)
+                /*if (toggleblast)
                 {
                     passbomb(y);
-                }
+                }*/
             }
 
         }

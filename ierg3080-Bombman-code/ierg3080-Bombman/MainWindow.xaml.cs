@@ -59,7 +59,7 @@ namespace ierg3080_Bombman
             GameCanvas.Children.Clear();
             MapSetup();
             Canvas.SetLeft(Player, GridSize + 5);
-            Canvas.SetTop(Player, GridSize + 1);
+            Canvas.SetTop(Player, GridSize + 5);
             //GameCanvas.Focus();
             //GameTimer.Tick += GameLoop;
             //GameTimer.Interval = TimeSpan.FromMilliseconds(100);

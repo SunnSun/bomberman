@@ -33,11 +33,13 @@ namespace ierg3080_Bombman
         Random rand = new Random();
         List<Rectangle> ItemsToRemove = new List<Rectangle>();
         List<Ellipse> EllipsesToRemove = new List<Ellipse>();
+        int playerx;
+        int playery;
         int level = 1;
         Rectangle Player = new Rectangle
         {
             Tag = "player",
-            Height = 18,
+            Height = 10,
             Width = 10,
             Fill = Brushes.Yellow
         };
@@ -49,9 +51,8 @@ namespace ierg3080_Bombman
             double InitX = XGridNum / 2;
             double InitY = YGridNum / 2;
             Random rnd = new Random();
-            int playerx;
-            int playery;
-            randomwallclear();
+            
+            //randomwallclear();
             for (int row = 0; row < 25; row++)
             {
                 for (int col = 0; col < 34; col++)
@@ -98,6 +99,49 @@ namespace ierg3080_Bombman
                 } while (map[x, y] != ' ');
                 map[x, y] = 'E';
             }
+            for(int j = 0; j< 25; j++)
+            {
+                for(int i = 0; i<34; i++)
+                {
+                    if (map[j, i] == 'w')
+                    {
+                        Rectangle wall = new Rectangle
+                        {
+                            Tag = "wall",
+                            Height = GridSize,
+                            Width = GridSize,
+                            Fill = BodyBrush
+                        };
+                        Canvas.SetLeft(wall, i * GridSize);
+                        Canvas.SetTop(wall, j * GridSize);
+                        Panel.SetZIndex(wall, 1);
+                        GameCanvas.Children.Add(wall);
+                    }
+                    if (map[j, i] == 'P')
+                    {
+                        playerx = i;
+                        playery = j;
+                        GameCanvas.Children.Add(Player);
+                        Canvas.SetLeft(Player, i * GridSize+5);
+                        Canvas.SetTop(Player, j * GridSize+5);
+
+                    }
+                    if (map[j, i] == 'E')
+                    {
+                        Rectangle enemy = new Rectangle
+                        {
+                            Tag = "enemy",
+                            Height = 10,
+                            Width = 10,
+                            Fill = EnemeyBrush
+                        };
+                        Canvas.SetLeft(enemy, i * GridSize + 5);
+                        Canvas.SetTop(enemy, j * GridSize + 5);
+                        Panel.SetZIndex(enemy, 1);
+                        GameCanvas.Children.Add(enemy);
+                    }
+                }
+            }
 
             /*
             map[0] = "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww";
@@ -126,50 +170,29 @@ namespace ierg3080_Bombman
             map[23] = "w                                w";
             map[24] = "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww";*/
 
+            //drawmap(map);
+        }
+
+        public void drawmap(char[,] map)
+        {
             for (int j = 0; j < 25; j++)
             {
                 for (int i = 0; i < 34; i++)
                 {
-                    if (map[j, i] == 'w')
-                    {
-                        Rectangle wall = new Rectangle
-                        {
-                            Tag = "wall",
-                            Height = GridSize,
-                            Width = GridSize,
-                            Fill = BodyBrush
-                        };
-                        Canvas.SetLeft(wall, i * GridSize);
-                        Canvas.SetTop(wall, j * GridSize);
-                        Panel.SetZIndex(wall, 1);
-                        GameCanvas.Children.Add(wall);
-                    }
                     if (map[j, i] == 'P')
                     {
                         playerx = i;
                         playery = j;
                         GameCanvas.Children.Add(Player);
-                        Canvas.SetLeft(Player, i * GridSize + 5);
-                        Canvas.SetTop(Player, j * GridSize + 1);
-                       
+                        Canvas.SetLeft(Player, i * GridSize);
+                        Canvas.SetTop(Player, j * GridSize);
+
                     }
-                    if (map[j, i] == 'E')
-                    {
-                        Rectangle enemy = new Rectangle
-                        {
-                            Tag = "enemy",
-                            Height = 10,
-                            Width = 10,
-                            Fill = EnemeyBrush
-                        };
-                        Canvas.SetLeft(enemy, i * GridSize + 5);
-                        Canvas.SetTop(enemy, j * GridSize + 5);
-                        Panel.SetZIndex(enemy, 1);
-                        GameCanvas.Children.Add(enemy);
-                    }
+                    
                 }
             }
         }
+
         //<Rectangle x:Name="Player" Tag="player" Height="18" Canvas.Left="187" Fill="Yellow" Canvas.Top="159" Width="10"/>
         public void randomwallgenerate()
         {

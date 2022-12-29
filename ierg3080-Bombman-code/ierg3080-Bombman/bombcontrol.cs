@@ -23,45 +23,31 @@ namespace ierg3080_Bombman
     /// </summary>
     public partial class MainWindow
     {
-
-        int SpawnCountdown = 30;
-        int CurrentCountdown;
-        int CurrentCountdown2;
-        bool togglebomb = false;
-        bool toggleblast = false;
+        int togglebomb = 0;
+        int toggleblast = 0;
         int blastingpower = 2;
         public List<Rectangle> BlastGrids = new List<Rectangle>();
 
-        private void Bombexplode()
+        private void Bombexplode(double bombx, double bomby)
         {
-            CurrentCountdown -= 1;
-            if (CurrentCountdown < 15)
+            togglebomb--;
+            toggleblast++;
+            foreach (var y in GameCanvas.Children.OfType<Rectangle>())
             {
-                togglebomb = false;
-                toggleblast = true;
-                CurrentCountdown2 = SpawnCountdown;
-
-                foreach (var y in GameCanvas.Children.OfType<Ellipse>())
-                {
-                    EllipsesToRemove.Add(y);
-                }
+                if (Canvas.GetLeft(y) == bombx && Canvas.GetTop(y) == bomby)
+                    ItemsToRemove.Add(y);
             }
         }
 
-        public void blastremove()
+        public void blastremove(double bombx, double bomby)
         {
-            CurrentCountdown2 -= 1;
-            if (CurrentCountdown2 < 15)
+            foreach (var y in GameCanvas.Children.OfType<Rectangle>())
             {
-
-                foreach (var y in GameCanvas.Children.OfType<Rectangle>())
-                {
-                    if ((string)y.Tag == "blast")
-                        ItemsToRemove.Add(y);
-                }
+                if ((string)y.Tag == "blast")
+                    ItemsToRemove.Add(y);
             }
         }
-        private void blasting()
+        private void blasting(double bombx, double bomby)
         {
             List<Rectangle> blast = new List<Rectangle>();
             for (int i = 0; i < blastingpower * 4 + 1; i++)
@@ -82,20 +68,21 @@ namespace ierg3080_Bombman
                 switch (dir)
                 {
                     case 0:
-                        Canvas.SetLeft(rec, bombx - 5);
-                        Canvas.SetTop(rec, bomby - count * 20 - 6); break;
+                        //left -5 top - 6
+                        Canvas.SetLeft(rec, bombx);
+                        Canvas.SetTop(rec, bomby - count * 20); break;
                     case 1:
-                        Canvas.SetLeft(rec, bombx - 5);
-                        Canvas.SetTop(rec, bomby + count * 20 - 6); break;
+                        Canvas.SetLeft(rec, bombx);
+                        Canvas.SetTop(rec, bomby + count * 20); break;
                     case 2:
-                        Canvas.SetLeft(rec, bombx - count * 20 - 5);
-                        Canvas.SetTop(rec, bomby - 6); break;
+                        Canvas.SetLeft(rec, bombx - count * 20);
+                        Canvas.SetTop(rec, bomby); break;
                     case 3:
-                        Canvas.SetLeft(rec, bombx + count * 20 - 5);
-                        Canvas.SetTop(rec, bomby - 6); break;
+                        Canvas.SetLeft(rec, bombx + count * 20);
+                        Canvas.SetTop(rec, bomby); break;
                     default:
-                        Canvas.SetLeft(rec, bombx - 5);
-                        Canvas.SetTop(rec, bomby - 6); break;
+                        Canvas.SetLeft(rec, bombx);
+                        Canvas.SetTop(rec, bomby); break;
                 }
                 count++;
                 if (count > blastingpower)
@@ -124,19 +111,18 @@ namespace ierg3080_Bombman
 
                 bombdestroy(Canvas.GetLeft(rec), Canvas.GetTop(rec), 20, 20);
             }
-            toggleblast = false;
+            toggleblast--;
         }
-        //test
 
 
-        private void passbomb(Ellipse bomb)
+        /*private void passbomb(Ellipse bomb)
         //please change the Ellipse to rectangle
         {
             if (CurrentCountdown < 15)
             {
                 blasting();
             }
-        }
+        }*/
 
         private void bombdestroy(double wallx, double wally, int width, int height)
         {
@@ -238,8 +224,31 @@ namespace ierg3080_Bombman
             GameCanvas.Children.Add(BlastPowerUp);
         }
         bool isGeneratedKey, isGeneratedDoor;
+        int countbreakablewall = 0;
         private void thingsBehindBlocks(double wallx, double wally, int width, int height)
         {
+            foreach (var y in GameCanvas.Children.OfType<Rectangle>())
+            {
+                if ((string)y.Tag == "breakablewall")
+                {
+                    countbreakablewall++;
+                }
+            }
+            if (countbreakablewall == 2 && isGeneratedDoor == false && isGeneratedKey == false)
+            {
+                generateKey(wallx, wally, width, height);
+            }
+
+            if (countbreakablewall == 1 && isGeneratedDoor == true && isGeneratedKey == false)
+            {
+                generateKey(wallx, wally, width, height);
+            }
+
+            if (countbreakablewall == 1 && isGeneratedDoor == false && isGeneratedKey == true)
+            {
+                generateDoor(wallx, wally, width, height);
+            }
+
             int itemSpawnProbiblity = rand.Next(1, 100);
             if (itemSpawnProbiblity > 80 && itemSpawnProbiblity <= 85 && isGeneratedKey == false)
             {
