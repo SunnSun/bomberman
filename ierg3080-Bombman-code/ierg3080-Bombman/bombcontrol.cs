@@ -206,7 +206,7 @@ namespace ierg3080_Bombman
             };
             Canvas.SetLeft(BombPowerUp, wallx);
             Canvas.SetTop(BombPowerUp, wally);
-            await Task.Delay(5000);
+            await Task.Delay(1000);
             GameCanvas.Children.Add(BombPowerUp);
         }
         private async void generateBlastPowerUp(double wallx, double wally, int width, int height)
@@ -220,7 +220,7 @@ namespace ierg3080_Bombman
             };
             Canvas.SetLeft(BlastPowerUp, wallx);
             Canvas.SetTop(BlastPowerUp, wally);
-            await Task.Delay(5000);
+            await Task.Delay(1000);
             GameCanvas.Children.Add(BlastPowerUp);
         }
         bool isGeneratedKey, isGeneratedDoor;
