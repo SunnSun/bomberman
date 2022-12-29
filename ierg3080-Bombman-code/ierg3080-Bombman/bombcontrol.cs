@@ -122,7 +122,7 @@ namespace ierg3080_Bombman
                 GameCanvas.Children.Add(rec);
 
 
-                bombdestroywall(Canvas.GetLeft(rec), Canvas.GetTop(rec), 20, 20);
+                bombdestroy(Canvas.GetLeft(rec), Canvas.GetTop(rec), 20, 20);
             }
             toggleblast = false;
         }
@@ -138,7 +138,7 @@ namespace ierg3080_Bombman
             }
         }
 
-        private void bombdestroywall(double wallx, double wally, int width, int height)
+        private void bombdestroy(double wallx, double wally, int width, int height)
         {
             Rect hitblast = new Rect(wallx, wally, width, height);
             foreach (var y in GameCanvas.Children.OfType<Rectangle>())
@@ -149,12 +149,29 @@ namespace ierg3080_Bombman
                     if (hitbreakablewall.IntersectsWith(hitblast))
                     {
                         ItemsToRemove.Add(y);
+                        thingsBehindBlocks(wallx, wally, width, height);
                     }
                 }
                 if ((string)y.Tag == "enemy")
                 {
-                    Rect hitbreakablewall = new Rect(Canvas.GetLeft(y) + 5, Canvas.GetTop(y) + 5, 10, 10);
-                    if (hitbreakablewall.IntersectsWith(hitblast))
+                    Rect hitenemy = new Rect(Canvas.GetLeft(y) + 5, Canvas.GetTop(y) + 5, 10, 10);
+                    if (hitenemy.IntersectsWith(hitblast))
+                    {
+                        ItemsToRemove.Add(y);
+                    }
+                }
+                if ((string)y.Tag == "bombpowerup")
+                {
+                    Rect hitbombpowerup = new Rect(Canvas.GetLeft(y) + 5, Canvas.GetTop(y) + 5, 10, 10);
+                    if (hitbombpowerup.IntersectsWith(hitblast))
+                    {
+                        ItemsToRemove.Add(y);
+                    }
+                }
+                if ((string)y.Tag == "blastpowerup")
+                {
+                    Rect hitblastpowerup = new Rect(Canvas.GetLeft(y) + 5, Canvas.GetTop(y) + 5, 10, 10);
+                    if (hitblastpowerup.IntersectsWith(hitblast))
                     {
                         ItemsToRemove.Add(y);
                     }
@@ -169,10 +186,12 @@ namespace ierg3080_Bombman
                 Tag = "key",
                 Height = height,
                 Width = width,
+
                 Fill = Brushes.Blue
             };
             Canvas.SetLeft(Key, wallx);
             Canvas.SetTop(Key, wally);
+            GameCanvas.Children.Add(Key);
         }
 
         private void generateDoor(double wallx, double wally, int width, int height)
@@ -186,6 +205,7 @@ namespace ierg3080_Bombman
             };
             Canvas.SetLeft(Door, wallx);
             Canvas.SetTop(Door, wally);
+            GameCanvas.Children.Add(Door);
         }
         private void generateBombPowerUp(double wallx, double wally, int width, int height)
         {
@@ -198,6 +218,7 @@ namespace ierg3080_Bombman
             };
             Canvas.SetLeft(BombPowerUp, wallx);
             Canvas.SetTop(BombPowerUp, wally);
+            GameCanvas.Children.Add(BombPowerUp);
         }
         private void generateBlastPowerUp(double wallx, double wally, int width, int height)
         {
@@ -210,6 +231,7 @@ namespace ierg3080_Bombman
             };
             Canvas.SetLeft(BlastPowerUp, wallx);
             Canvas.SetTop(BlastPowerUp, wally);
+            GameCanvas.Children.Add(BlastPowerUp);
         }
         bool isGeneratedKey, isGeneratedDoor;
         private void thingsBehindBlocks(double wallx, double wally, int width, int height)
