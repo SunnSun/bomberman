@@ -72,8 +72,8 @@ namespace ierg3080_Bombman
                         //StrokeThickness = 1,
                         Fill = Brushes.Blue
                     };
-                    Canvas.SetTop(Bomb, Canvas.GetTop(Player)-5);
-                    Canvas.SetLeft(Bomb, Canvas.GetLeft(Player)-5);
+                    Canvas.SetTop(Bomb, Canvas.GetTop(Player)-1);
+                    Canvas.SetLeft(Bomb, Canvas.GetLeft(Player)-1);
                     GameCanvas.Children.Add(Bomb);
                     togglebomb++;
                     await Task.Delay(2000);
@@ -256,8 +256,8 @@ namespace ierg3080_Bombman
                         Canvas.SetTop(x, Canvas.GetTop(x) + 2 * enemeymovement);
                     else
                         Canvas.SetLeft(x, Canvas.GetLeft(x) + 2 * enemeymovement);
-                    Rect hitenemy = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
-                    Rect hitenemy1 = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x) - 20, x.Width, x.Height + 40);
+                    Rect hitenemy = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), 15, 15);
+                    Rect hitenemy1 = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x) - 20, 15, 15 + 40);
                     foreach (var y in GameCanvas.Children.OfType<Rectangle>())
                     {
                         if ((string)y.Tag == "breakablewall" || (string)y.Tag == "wall")

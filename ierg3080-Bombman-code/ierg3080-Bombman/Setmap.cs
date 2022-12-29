@@ -39,8 +39,8 @@ namespace ierg3080_Bombman
         Rectangle Player = new Rectangle
         {
             Tag = "player",
-            Height = 10,
-            Width = 10,
+            Height = 20,
+            Width = 20,
             Fill = Brushes.Yellow
         };
 
@@ -122,8 +122,8 @@ namespace ierg3080_Bombman
                         playerx = i;
                         playery = j;
                         GameCanvas.Children.Add(Player);
-                        Canvas.SetLeft(Player, i * GridSize+5);
-                        Canvas.SetTop(Player, j * GridSize+5);
+                        Canvas.SetLeft(Player, i * GridSize+1);
+                        Canvas.SetTop(Player, j * GridSize+1);
 
                     }
                     if (map[j, i] == 'E')
@@ -131,12 +131,12 @@ namespace ierg3080_Bombman
                         Rectangle enemy = new Rectangle
                         {
                             Tag = "enemy",
-                            Height = 10,
-                            Width = 10,
+                            Height = 15,
+                            Width = 15,
                             Fill = EnemeyBrush
                         };
-                        Canvas.SetLeft(enemy, i * GridSize + 5);
-                        Canvas.SetTop(enemy, j * GridSize + 5);
+                        Canvas.SetLeft(enemy, i * GridSize + 1);
+                        Canvas.SetTop(enemy, j * GridSize + 1);
                         Panel.SetZIndex(enemy, 1);
                         GameCanvas.Children.Add(enemy);
                     }
