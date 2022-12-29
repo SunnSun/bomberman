@@ -191,7 +191,7 @@ namespace ierg3080_Bombman
             };
             Canvas.SetLeft(Key, wallx);
             Canvas.SetTop(Key, wally);
-            await Task.Delay(5000);
+            await Task.Delay(1000);
             GameCanvas.Children.Add(Key);
         }
 
@@ -206,7 +206,7 @@ namespace ierg3080_Bombman
             };
             Canvas.SetLeft(Door, wallx);
             Canvas.SetTop(Door, wally);
-            await Task.Delay(5000);
+            await Task.Delay(1000);
             GameCanvas.Children.Add(Door);
         }
         private async void generateBombPowerUp(double wallx, double wally, int width, int height)

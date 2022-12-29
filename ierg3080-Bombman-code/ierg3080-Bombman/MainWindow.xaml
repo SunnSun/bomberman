@@ -8,7 +8,7 @@
         Title="MainWindow" Height="621" Width="800">
     <Grid>
         <Canvas x:Name="GameCanvas" HorizontalAlignment="Left" Height="500" Focusable="True" Margin="52,0,0,0" VerticalAlignment="Top" Width="680" Background="#FF3C3C3C" KeyDown="keypressed" KeyUp="keyreleased">
-            <Rectangle x:Name="Player" Tag="player" Height="18" Canvas.Left="187" Fill="Yellow" Canvas.Top="159" Width="18"/>
+            
         </Canvas>
         <Grid HorizontalAlignment="Left" Height="96" Margin="0,504,0,0" VerticalAlignment="Top" Width="800" Background="LightGray">
             <Button x:Name="Restart_button" Content="Restart" HorizontalAlignment="Left" Margin="95,0,0,0" VerticalAlignment="Center" Height="36" Width="74" Click="Restart_buttonclick"/>

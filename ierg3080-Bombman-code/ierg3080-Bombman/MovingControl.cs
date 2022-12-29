@@ -247,6 +247,14 @@ namespace ierg3080_Bombman
                             {
                                 if (playerWithKey)
                                 {
+                                    level++;
+                                    playerWithKey = false;
+                                    blastingpower = 1;
+                                    bombmaximum = 1;
+                                    isGeneratedDoor = false;
+                                    isGeneratedKey = false;
+                                    GameCanvas.Children.Clear();
+                                    MapSetup();
                                     //Game Go to Next Level
                                 }
                             }

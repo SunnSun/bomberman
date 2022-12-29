@@ -34,6 +34,13 @@ namespace ierg3080_Bombman
         List<Rectangle> ItemsToRemove = new List<Rectangle>();
         List<Ellipse> EllipsesToRemove = new List<Ellipse>();
         int level = 1;
+        Rectangle Player = new Rectangle
+        {
+            Tag = "player",
+            Height = 18,
+            Width = 10,
+            Fill = Brushes.Yellow
+        };
 
         public void MapSetup()
         {
@@ -139,12 +146,12 @@ namespace ierg3080_Bombman
                     }
                     if (map[j, i] == 'P')
                     {
-                        Player.Width = 10;
-                        Player.Height = 18;
                         playerx = i;
                         playery = j;
+                        GameCanvas.Children.Add(Player);
                         Canvas.SetLeft(Player, i * GridSize + 5);
                         Canvas.SetTop(Player, j * GridSize + 1);
+                       
                     }
                     if (map[j, i] == 'E')
                     {
@@ -163,10 +170,10 @@ namespace ierg3080_Bombman
                 }
             }
         }
-
+        //<Rectangle x:Name="Player" Tag="player" Height="18" Canvas.Left="187" Fill="Yellow" Canvas.Top="159" Width="10"/>
         public void randomwallgenerate()
         {
-            int wallNum = rand.Next(70, 110);
+            int wallNum = rand.Next(level*70, level*110);
             for (int i = 0; i < wallNum; i++)
             {
                 Point location = new Point();
@@ -219,7 +226,7 @@ namespace ierg3080_Bombman
                     Width = GridSize,
                     Fill = Brushes.Gray
                 };
-                position.Content = "X: " + location.X + "Y: " + location.Y;
+                position.Content = "level: " + level;
                 map[(int)location.Y / 20, (int)location.X / 20] = 'B';
                 Canvas.SetLeft(breakablewall, location.X);
                 Canvas.SetTop(breakablewall, location.Y);

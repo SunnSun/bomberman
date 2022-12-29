@@ -49,14 +49,22 @@ namespace ierg3080_Bombman
 
         private void Restart_buttonclick(object sender, RoutedEventArgs e)
         {
-            GameTimer.Stop();
+            //GameTimer.Stop();
             //GameTimer.Tick -= GameLoop;
+            playerWithKey = false;
+            blastingpower = 1;
+            bombmaximum = 1;
+            isGeneratedDoor = false;
+            isGeneratedKey = false;
+            GameCanvas.Children.Clear();
             MapSetup();
-            GameCanvas.Focus();
+            Canvas.SetLeft(Player, GridSize + 5);
+            Canvas.SetTop(Player, GridSize + 1);
+            //GameCanvas.Focus();
             //GameTimer.Tick += GameLoop;
-            GameTimer.Interval = TimeSpan.FromMilliseconds(100);
+            //GameTimer.Interval = TimeSpan.FromMilliseconds(100);
 
-            GameTimer.Start();
+            //GameTimer.Start();
             randomwallgenerate();
         }
 
