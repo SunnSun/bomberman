@@ -41,9 +41,10 @@ namespace ierg3080_Bombman
                 toggleblast = true;
                 CurrentCountdown2 = SpawnCountdown;
 
-                foreach (var y in GameCanvas.Children.OfType<Ellipse>())
+                foreach (var y in GameCanvas.Children.OfType<Rectangle>())
                 {
-                    EllipsesToRemove.Add(y);
+                    if ((string)y.Tag == "Bomb")
+                        ItemsToRemove.Add(y);
                 }
             }
         }
@@ -129,7 +130,7 @@ namespace ierg3080_Bombman
         //test
 
 
-        private void passbomb(Ellipse bomb)
+        private void passbomb(Rectangle bomb)
         //please change the Ellipse to rectangle
         {
             if (CurrentCountdown < 15)
@@ -179,7 +180,7 @@ namespace ierg3080_Bombman
             }
         }
 
-        private void generateKey(double wallx, double wally, int width, int height)
+        private async void generateKey(double wallx, double wally, int width, int height)
         {
             Rectangle Key = new Rectangle
             {
@@ -191,10 +192,11 @@ namespace ierg3080_Bombman
             };
             Canvas.SetLeft(Key, wallx);
             Canvas.SetTop(Key, wally);
+            await Task.Delay(5000);
             GameCanvas.Children.Add(Key);
         }
 
-        private void generateDoor(double wallx, double wally, int width, int height)
+        private async void generateDoor(double wallx, double wally, int width, int height)
         {
             Rectangle Door = new Rectangle
             {
@@ -205,9 +207,10 @@ namespace ierg3080_Bombman
             };
             Canvas.SetLeft(Door, wallx);
             Canvas.SetTop(Door, wally);
+            await Task.Delay(5000);
             GameCanvas.Children.Add(Door);
         }
-        private void generateBombPowerUp(double wallx, double wally, int width, int height)
+        private async void generateBombPowerUp(double wallx, double wally, int width, int height)
         {
             Rectangle BombPowerUp = new Rectangle
             {
@@ -218,9 +221,10 @@ namespace ierg3080_Bombman
             };
             Canvas.SetLeft(BombPowerUp, wallx);
             Canvas.SetTop(BombPowerUp, wally);
+            await Task.Delay(5000);
             GameCanvas.Children.Add(BombPowerUp);
         }
-        private void generateBlastPowerUp(double wallx, double wally, int width, int height)
+        private async void generateBlastPowerUp(double wallx, double wally, int width, int height)
         {
             Rectangle BlastPowerUp = new Rectangle
             {
@@ -231,6 +235,7 @@ namespace ierg3080_Bombman
             };
             Canvas.SetLeft(BlastPowerUp, wallx);
             Canvas.SetTop(BlastPowerUp, wally);
+            await Task.Delay(5000);
             GameCanvas.Children.Add(BlastPowerUp);
         }
         bool isGeneratedKey, isGeneratedDoor;

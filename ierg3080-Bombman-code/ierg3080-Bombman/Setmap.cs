@@ -33,6 +33,7 @@ namespace ierg3080_Bombman
         Random rand = new Random();
         List<Rectangle> ItemsToRemove = new List<Rectangle>();
         List<Ellipse> EllipsesToRemove = new List<Ellipse>();
+        int level = 1;
 
         public void MapSetup()
         {
@@ -74,15 +75,23 @@ namespace ierg3080_Bombman
                         {
                             map[row, col] = 'w';
                         }
+                        if (col == 33)
+                        {
+                            map[row, col] = 'w';
+                        }
                     }
             }
             int x, y;
-            do
+            for (int i = 0; i < level * 2; i++)
             {
-                x = rnd.Next(1, 23);
-                y = rnd.Next(1, 32);
-            } while (map[x, y] != ' ');
-            map[x, y] = 'E';
+                do
+                {
+                    x = rnd.Next(1, 23);
+                    y = rnd.Next(1, 32);
+                } while (map[x, y] != ' ');
+                map[x, y] = 'E';
+            }
+
             /*
             map[0] = "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww";
             map[1] = "wP                               w";
