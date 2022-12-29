@@ -363,6 +363,7 @@ namespace ierg3080_Bombman
             {
                 GameCanvas.Children.Clear();
                 MapSetup();
+                randomwallgenerate();
                 nextLv = false;
             }
             if (MoveRight == true)
