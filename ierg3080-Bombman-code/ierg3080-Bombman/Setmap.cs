@@ -265,7 +265,7 @@ namespace ierg3080_Bombman
         {
             foreach (Rectangle x in GameCanvas.Children)
             {
-                if ((string)x.Tag == "breakablewall")
+                if ((string)x.Tag != "wall")
                 {
                     ItemsToRemove.Add(x);
                 }

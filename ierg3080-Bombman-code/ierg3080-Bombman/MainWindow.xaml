@@ -15,6 +15,7 @@
             <Label x:Name="position" Content="bomb Position" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="500,0,0,0" Height="50" Width="200"></Label>
             <Image Height="16" Width="16" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="330,0,0,0" Source="/image/heart.png"/>
             <Label x:Name="Life" Content="100" HorizontalAlignment="Left" Margin="346,0,0,0" VerticalAlignment="Center"/>
+            <Label x:Name="planted_bomb" Content="Planted bomb" HorizontalAlignment="Left" Margin="182,0,0,0" VerticalAlignment="Center" Width="126"/>
         </Grid>
     </Grid>
 
