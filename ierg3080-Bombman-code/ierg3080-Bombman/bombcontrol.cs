@@ -42,9 +42,10 @@ namespace ierg3080_Bombman
                 toggleblast = true;
                 CurrentCountdown2 = SpawnCountdown;
 
-                foreach (var y in GameCanvas.Children.OfType<Ellipse>())
+                foreach (var y in GameCanvas.Children.OfType<Rectangle>())
                 {
-                    EllipsesToRemove.Add(y);                   
+                    if((string)y.Tag == "bomb")
+                    ItemsToRemove.Add(y);                   
                 }
             }
         }
@@ -175,8 +176,7 @@ namespace ierg3080_Bombman
             toggleblast = false;
         }
 
-        private void passbomb(Ellipse bomb)
-            //please change the Ellipse to rectangle
+        private void passbomb(Rectangle bomb)
         {
             if(CurrentCountdown < 15)
             {
@@ -195,6 +195,7 @@ namespace ierg3080_Bombman
                     if(hitbreakablewall.IntersectsWith(hitblast))
                     {
                         ItemsToRemove.Add(y);
+                        thingsBehindBlocks(wallx, wally, width, height);
                     }
                 }
                 if ((string)y.Tag == "enemy")
@@ -204,6 +205,54 @@ namespace ierg3080_Bombman
                     {
                         ItemsToRemove.Add(y);
                     }
+                }
+            }
+        }
+
+        private void generateKey(double wallx, double wally, int width, int height)
+        {
+            Rectangle Key = new Rectangle
+                {
+                    Tag = "key",
+                    Height = 20,
+                    Width = 20,
+                    Fill = Brushes.Yellow
+                };
+        }
+
+        private void generateDoor(double wallx, double wally, int width, int height)
+        {
+
+        }
+        private void generateBombPowerUp(double wallx, double wally, int width, int height)
+        {
+
+        }
+        private void generateBlastPowerUp(double wallx, double wally, int width, int height)
+        {
+
+        }
+        private void thingsBehindBlocks(double wallx, double wally, int width, int height)
+        {
+            
+            int itemSpawnProbiblity = rand.Next(1, 100);
+            for (int i = 0; i < 100; i++)
+            {
+                if (itemSpawnProbiblity > 80 && itemSpawnProbiblity <= 85 && isGeneratedKey)
+                {
+                    generateKey(wallx, wally, width, height);
+                }
+                else if (itemSpawnProbiblity > 86 && itemSpawnProbiblity <= 90 && isGeneratedDoor)
+                {
+                    generateDoor(wallx, wally, width, height);
+                }
+                else if (itemSpawnProbiblity > 90 && itemSpawnProbiblity <= 95)
+                {
+                    generateBombPowerUp(wallx, wally, width, height);
+                }
+                else if (itemSpawnProbiblity > 95 && itemSpawnProbiblity <= 100)
+                {
+                    generateBlastPowerUp(wallx, wally, width, height);
                 }
             }
         }

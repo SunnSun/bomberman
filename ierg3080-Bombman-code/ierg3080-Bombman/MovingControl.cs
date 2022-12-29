@@ -24,6 +24,7 @@ namespace ierg3080_Bombman
     /// test
     public partial class MainWindow
     {
+        int playerLife = 100;
         Rect Playerhitboxleft, Playerhitboxright, Playerhitboxup, Playerhitboxdown;
         double bombx, bomby;
         int enemeymovement = 1;
@@ -61,7 +62,7 @@ namespace ierg3080_Bombman
             {
                 if (e.Key == Key.Space)
                 {
-                    Ellipse Bomb = new Ellipse
+                    Rectangle Bomb = new Rectangle
                     {
                         Tag = "Bomb",
                         Height = 10,
@@ -201,6 +202,25 @@ namespace ierg3080_Bombman
                         }
                     }
                 }
+                if((string)x.Tag == "player"){
+                    Rect hitplayer = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
+                    foreach(var y in GameCanvas.Children.OfType<Rectangle>()){
+                        if((string)y.Tag == "blast"){
+                            Rect hitblast = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
+                            if(hitblast.IntersectsWith(hitplayer)){
+                                playerLife -= 20;
+                                Life.Content = playerLife;
+                            }
+                        }
+                        if((string)y.Tag == "enemy"){
+                            Rect hitenemy = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
+                            if(hitenemy.IntersectsWith(hitplayer)){
+                                playerLife -= 20;
+                                Life.Content = playerLife;
+                            }
+                        }
+                    }
+                }
             }
 
             if (MoveRight == true)
@@ -232,22 +252,11 @@ namespace ierg3080_Bombman
             foreach (Rectangle x in ItemsToRemove)
             {
                 GameCanvas.Children.Remove(x);
-                //please add the following code, after change bomb to rectangle
-                /*if (toggleblast)
-                {
-                    passbomb(x);
-                }*/
-            }
-            foreach (Ellipse y in EllipsesToRemove)
-            {
-                GameCanvas.Children.Remove(y);
-                //please remove the following code, after change bomb to rectangle
                 if (toggleblast)
                 {
-                    passbomb(y);
+                    passbomb(x);
                 }
             }
-
         }
 
     }

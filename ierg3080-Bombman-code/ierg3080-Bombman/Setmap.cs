@@ -32,7 +32,6 @@ namespace ierg3080_Bombman
         Brush FoodBrush = new SolidColorBrush(Colors.Red);
         Random rand = new Random();
         List<Rectangle> ItemsToRemove = new List<Rectangle>();
-        List<Ellipse> EllipsesToRemove = new List<Ellipse>();
 
         public void MapSetup()
         {
