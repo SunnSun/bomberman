@@ -37,12 +37,19 @@ namespace ierg3080_Bombman
         int playerx;
         int playery;
         int level = 1;
+        ImageBrush playersprite = new ImageBrush();
+        //playersprite = new BitmapImage(new Uri("pack://application:,,,/image/player.png"));
+
         Rectangle Player = new Rectangle
         {
             Tag = "player",
-            Height = 20,
-            Width = 20,
-            Fill = Brushes.Yellow
+            Height = 17,
+            Width = 17,
+            Fill = Brushes.Yellow,
+            //ImageBrush Player = new ImageBrush(),
+            //BitmapImage bmi = new BitmapImage(new Uri(@"/WpfImageApp;component/Images/Penguins.jpg", UriKind.Relative));
+            //ib.ImageSource = bmi;
+            //body.Fill = ib;
         };
         public void MapSetup()
         {
@@ -122,8 +129,8 @@ namespace ierg3080_Bombman
                         playerx = i;
                         playery = j;
                         GameCanvas.Children.Add(Player);
-                        Canvas.SetLeft(Player, i * GridSize+1);
-                        Canvas.SetTop(Player, j * GridSize+1);
+                        Canvas.SetLeft(Player, i * GridSize+2);
+                        Canvas.SetTop(Player, j * GridSize+2);
 
                     }
                     if (map[j, i] == 'E')
@@ -173,25 +180,7 @@ namespace ierg3080_Bombman
             //drawmap(map);
         }
 
-        public void drawmap(char[,] map)
-        {
-            for (int j = 0; j < 25; j++)
-            {
-                for (int i = 0; i < 34; i++)
-                {
-                    if (map[j, i] == 'P')
-                    {
-                        playerx = i;
-                        playery = j;
-                        GameCanvas.Children.Add(Player);
-                        Canvas.SetLeft(Player, i * GridSize);
-                        Canvas.SetTop(Player, j * GridSize);
-
-                    }
-                    
-                }
-            }
-        }
+        
 
         //<Rectangle x:Name="Player" Tag="player" Height="18" Canvas.Left="187" Fill="Yellow" Canvas.Top="159" Width="10"/>
         public void randomwallgenerate()

@@ -11,12 +11,12 @@
 
         </Canvas>
         <Grid HorizontalAlignment="Center" Height="69" Margin="0,531,0,0" VerticalAlignment="Top" Width="800" Background="LightGray">
-            <Image Height="60" Width="60" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="100,0,0,0" Source="/image/player.png"/>
-            <Image Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="275,0,0,0" Source="/image/heart.png"/>
-            <Image Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="175,0,0,0" Source="/image/blastpowerup.png"/>
-            <Image Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="225,0,0,0" Source="/image/bomb.jpg"/>
-            <Image Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="340,0,0,0" Source="/image/key.png"/>
-            <Image Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="400,0,0,0" Source="/image/door.png"/>
+            <Image Height="60" Width="60" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="100,0,0,0" Source="/player.png"/>
+            <Image Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="275,0,0,0" Source="/heart.png"/>
+            <Image Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="175,0,0,0" Source="/blastpowerup.png"/>
+            <Image Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="225,0,0,0" Source="/bomb.jpg"/>
+            <Image Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="340,0,0,0" Source="/key.png"/>
+            <Image Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="400,0,0,0" Source="/door.png"/>
             <Label x:Name="keylabel" Content="0" HorizontalAlignment="Left" Margin="370,0,0,0" VerticalAlignment="Center" FontFamily="Arial Black"/>
             <Label x:Name="doorlabel" Content="0" HorizontalAlignment="Left" Margin="430,0,0,0" VerticalAlignment="Center" FontFamily="Arial Black"/>
             <Label x:Name="Lifelabel" Content="100" HorizontalAlignment="Left" Margin="300,0,0,0" VerticalAlignment="Center" FontFamily="Arial Black"/>

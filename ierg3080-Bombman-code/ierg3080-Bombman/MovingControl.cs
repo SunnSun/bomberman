@@ -73,8 +73,8 @@ namespace ierg3080_Bombman
                         //StrokeThickness = 1,
                         Fill = Brushes.Blue
                     };
-                    Canvas.SetTop(Bomb, Canvas.GetTop(Player)-5);
-                    Canvas.SetLeft(Bomb, Canvas.GetLeft(Player)-5);
+                    Canvas.SetTop(Bomb, Canvas.GetTop(Player)-2);
+                    Canvas.SetLeft(Bomb, Canvas.GetLeft(Player) - 2);
                     GameCanvas.Children.Add(Bomb);
                     togglebomb++;
                     await Task.Delay(2000);
@@ -269,7 +269,7 @@ namespace ierg3080_Bombman
                 }
                 if ((string)x.Tag == "player")
                 {
-                    Rect hitplayer = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
+                    Rect hitplayer = new Rect(Canvas.GetLeft(x)-1, Canvas.GetTop(x)-1, x.Width, x.Height);
                     foreach (var y in GameCanvas.Children.OfType<Rectangle>())
                     {
                         //player hit blast
