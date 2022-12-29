@@ -30,7 +30,6 @@ namespace ierg3080_Bombman
         int CurrentCountdown2;
         bool togglebomb = false;
         bool toggleblast = false;
-        int blastingpower = 1;
         public List<Rectangle> BlastGrids = new List<Rectangle>();
 
         private void Bombexplode()
@@ -55,7 +54,6 @@ namespace ierg3080_Bombman
             CurrentCountdown2 -= 1;
             if (CurrentCountdown2 < 15)
             {
-
                 foreach (var y in GameCanvas.Children.OfType<Rectangle>())
                 {
                     if((string)y.Tag == "blast")
@@ -214,46 +212,71 @@ namespace ierg3080_Bombman
             Rectangle Key = new Rectangle
                 {
                     Tag = "key",
-                    Height = 20,
-                    Width = 20,
-                    Fill = Brushes.Yellow
+                    Height = height,
+                    Width = weight,
+                    Fill = Brushes.Blue
                 };
+            Canvas.SetLeft(Key, wallx);
+            Canvas.SetTop(Key, wally);
         }
 
         private void generateDoor(double wallx, double wally, int width, int height)
         {
-
+            Rectangle Door = new Rectangle
+                {
+                    Tag = "door",
+                    Height = height,
+                    Width = weight,
+                    Fill = Brushes.Brown
+                };
+            Canvas.SetLeft(Door, wallx);
+            Canvas.SetTop(Door, wally);
         }
         private void generateBombPowerUp(double wallx, double wally, int width, int height)
         {
-
+            Rectangle BombPowerUp = new Rectangle
+                {
+                    Tag = "bombpowerup",
+                    Height = height,
+                    Width = weight,
+                    Fill = Brushes.pink
+                };
+            Canvas.SetLeft(BombPowerUp, wallx);
+            Canvas.SetTop(BombPowerUp, wally);
         }
         private void generateBlastPowerUp(double wallx, double wally, int width, int height)
         {
-
+            Rectangle BlastPowerUp = new Rectangle
+                {
+                    Tag = "blastpowerup",
+                    Height = height,
+                    Width = weight,
+                    Fill = Brushes.green
+                };
+            Canvas.SetLeft(BlastPowerUp, wallx);
+            Canvas.SetTop(BlastPowerUp, wally);
         }
         private void thingsBehindBlocks(double wallx, double wally, int width, int height)
         {
             
             int itemSpawnProbiblity = rand.Next(1, 100);
-            for (int i = 0; i < 100; i++)
+            if (itemSpawnProbiblity > 80 && itemSpawnProbiblity <= 85 && isGeneratedKey == false)
             {
-                if (itemSpawnProbiblity > 80 && itemSpawnProbiblity <= 85 && isGeneratedKey)
-                {
-                    generateKey(wallx, wally, width, height);
-                }
-                else if (itemSpawnProbiblity > 86 && itemSpawnProbiblity <= 90 && isGeneratedDoor)
-                {
-                    generateDoor(wallx, wally, width, height);
-                }
-                else if (itemSpawnProbiblity > 90 && itemSpawnProbiblity <= 95)
-                {
-                    generateBombPowerUp(wallx, wally, width, height);
-                }
-                else if (itemSpawnProbiblity > 95 && itemSpawnProbiblity <= 100)
-                {
-                    generateBlastPowerUp(wallx, wally, width, height);
-                }
+                generateKey(wallx, wally, width, height);
+                isGeneratedKey = true;
+            }
+            else if (itemSpawnProbiblity > 86 && itemSpawnProbiblity <= 90 && isGeneratedDoor == false)
+            {
+                generateDoor(wallx, wally, width, height);
+                isGeneratedDoor = true;
+            }
+            else if (itemSpawnProbiblity > 90 && itemSpawnProbiblity <= 95)
+            {
+                generateBombPowerUp(wallx, wally, width, height);
+            }
+            else if (itemSpawnProbiblity > 95 && itemSpawnProbiblity <= 100)
+            {
+                generateBlastPowerUp(wallx, wally, width, height);
             }
         }
     }
