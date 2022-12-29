@@ -25,7 +25,7 @@ namespace ierg3080_Bombman
     {
         int togglebomb = 0;
         int toggleblast = 0;
-        int blastingpower = 2;
+        int blastingpower = 1;
         public List<Rectangle> BlastGrids = new List<Rectangle>();
 
         private void Bombexplode(double bombx, double bomby)
@@ -194,6 +194,7 @@ namespace ierg3080_Bombman
             Canvas.SetTop(Door, wally);
             await Task.Delay(1000);
             GameCanvas.Children.Add(Door);
+            doorlabel.Content = 1;
         }
         private async void generateBombPowerUp(double wallx, double wally, int width, int height)
         {

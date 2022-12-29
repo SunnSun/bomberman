@@ -15,6 +15,7 @@ using System.Windows.Media.Media3D;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace ierg3080_Bombman
 {
@@ -72,8 +73,8 @@ namespace ierg3080_Bombman
                         //StrokeThickness = 1,
                         Fill = Brushes.Blue
                     };
-                    Canvas.SetTop(Bomb, Canvas.GetTop(Player)-1);
-                    Canvas.SetLeft(Bomb, Canvas.GetLeft(Player)-1);
+                    Canvas.SetTop(Bomb, Canvas.GetTop(Player)-5);
+                    Canvas.SetLeft(Bomb, Canvas.GetLeft(Player)-5);
                     GameCanvas.Children.Add(Bomb);
                     togglebomb++;
                     await Task.Delay(2000);
@@ -81,7 +82,6 @@ namespace ierg3080_Bombman
                     blasting(Canvas.GetLeft(Bomb), Canvas.GetTop(Bomb));
                     await Task.Delay(1000);
                     blastremove(Canvas.GetLeft(Bomb), Canvas.GetTop(Bomb));
-           
                 }
             }
 
@@ -123,7 +123,7 @@ namespace ierg3080_Bombman
         Random rnd = new Random();
         private async void GameLoop(object sender, EventArgs e)
         {
-            bool nextLv = false;
+
             Playerhitboxleft = new Rect(Canvas.GetLeft(Player) - 20, Canvas.GetTop(Player), 10, 10);
             Playerhitboxdown = new Rect(Canvas.GetLeft(Player), Canvas.GetTop(Player) + 20, 10, 10);
             Playerhitboxup = new Rect(Canvas.GetLeft(Player), Canvas.GetTop(Player) - 20, 10, 10);
@@ -172,61 +172,31 @@ namespace ierg3080_Bombman
                         MoveDown = false;
                     }
                 }
-                /*if ((string)x.Tag == "bomb")
-                {
-                    Rect hitbomb = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
-                    if (Playerhitboxleft.IntersectsWith(hitbomb))
-                    {
-                        MoveLeft = false;
-                    }
-                    if (Playerhitboxright.IntersectsWith(hitbomb))
-                    {
-                        MoveRight = false;
-                    }
-                    if (Playerhitboxup.IntersectsWith(hitbomb))
-                    {
-                        MoveUp = false;
-                    }
-                    if (Playerhitboxdown.IntersectsWith(hitbomb))
-                    {
-                        MoveDown = false;
-                    }
-                    foreach (var y in GameCanvas.Children.OfType<Rectangle>())
-                    {
-                        if ((string)y.Tag == "blast")
-                        {
-                            Bombexplode(Canvas.GetLeft(x), Canvas.GetTop(x));
-                            blasting(Canvas.GetLeft(x), Canvas.GetTop(x));
-                            await Task.Delay(1000);
-                            blastremove(Canvas.GetLeft(x), Canvas.GetTop(x));
-                        }
-                    }
-                }*/
-                /*Rectangle temp = new Rectangle();
-                if((string)x.Tag == "blast")
-                {
-                    Rect blast = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
-                    foreach (Rectangle y in GameCanvas.Children)
-                    {
-                        if ((string)y.Tag == "Bomb" || (string)y.Tag == "plantedbomb")
-                        {
-                            Rect Bomb = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
-                            if (Bomb.IntersectsWith(blast))
-                            {
-                                temp = y;
-                            }
-                            
-                        }
-                    }
-                }*/
                 if ((string)x.Tag == "Bomb")
                 {
                     Rect hitbomb = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
+
+
                     //Rect hitplayer = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
                     if (hitbomb.IntersectsWith(Playerhitboxleft) || hitbomb.IntersectsWith(Playerhitboxright) || hitbomb.IntersectsWith(Playerhitboxup) || hitbomb.IntersectsWith(Playerhitboxdown))
                     {
                         x.Tag = "plantedbomb";
                     }
+                    /*
+                    foreach (var y in GameCanvas.Children.OfType<Rectangle>())
+                    {
+                        if ((string)y.Tag == "blast")
+                        {
+                            Rect hitblast = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
+                            if (hitbomb.IntersectsWith(hitblast))
+                            {
+                                Bombexplode(Canvas.GetLeft(y), Canvas.GetTop(y));
+                                blasting(Canvas.GetLeft(y), Canvas.GetTop(y));
+                                await Task.Delay(1000);
+                                blastremove(Canvas.GetLeft(y), Canvas.GetTop(y));
+                            }
+                        }
+                    }*/
                 }
                 if ((string)x.Tag == "plantedbomb")
                 {
@@ -247,6 +217,20 @@ namespace ierg3080_Bombman
                     {
                         MoveDown = false;
                     }
+                    /*foreach (var y in GameCanvas.Children.OfType<Rectangle>())
+                    {
+                        if ((string)y.Tag == "blast")
+                        {
+                            Rect hitblast = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
+                            if (hitplantedbomb.IntersectsWith(hitblast))
+                            {
+                                Bombexplode(Canvas.GetLeft(y), Canvas.GetTop(y));
+                                //blasting(Canvas.GetLeft(y), Canvas.GetTop(y));
+                                //await Task.Delay(1000);
+                                //blastremove(Canvas.GetLeft(y), Canvas.GetTop(y));
+                            }
+                        }
+                    }*/
                 }
 
 
@@ -256,8 +240,8 @@ namespace ierg3080_Bombman
                         Canvas.SetTop(x, Canvas.GetTop(x) + 2 * enemeymovement);
                     else
                         Canvas.SetLeft(x, Canvas.GetLeft(x) + 2 * enemeymovement);
-                    Rect hitenemy = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), 15, 15);
-                    Rect hitenemy1 = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x) - 20, 15, 15 + 40);
+                    Rect hitenemy = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
+                    Rect hitenemy1 = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x) - 20, x.Width, x.Height + 40);
                     foreach (var y in GameCanvas.Children.OfType<Rectangle>())
                     {
                         if ((string)y.Tag == "breakablewall" || (string)y.Tag == "wall")
@@ -295,7 +279,7 @@ namespace ierg3080_Bombman
                             if (hitblast.IntersectsWith(hitplayer))
                             {
                                 playerLife -= 20;
-                                Life.Content = playerLife;
+                                Lifelabel.Content = playerLife;
                             }
                         }
                         //player hit enemy
@@ -305,7 +289,7 @@ namespace ierg3080_Bombman
                             if (hitenemy.IntersectsWith(hitplayer))
                             {
                                 playerLife -= 20;
-                                Life.Content = playerLife;
+                                Lifelabel.Content = playerLife;
                             }
                         }
                         //player hit key
@@ -315,6 +299,7 @@ namespace ierg3080_Bombman
                             if (hitkey.IntersectsWith(hitplayer))
                             {
                                 playerWithKey = true;
+                                keylabel.Content = 1;
                                 ItemsToRemove.Add(y);
                             }
                         }
@@ -327,12 +312,18 @@ namespace ierg3080_Bombman
                                 if (playerWithKey)
                                 {
                                     level++;
+                                    levellabel.Content = "level : " + level;
                                     playerWithKey = false;
                                     blastingpower = 1;
+                                    blastingpowerlabel.Content = 1;
                                     bombmaximum = 1;
+                                    bomblabel.Content = 1;
                                     isGeneratedDoor = false;
+                                    doorlabel.Content = 0;
                                     isGeneratedKey = false;
-                                    nextLv = true;
+                                    keylabel.Content = 0;
+                                    GameCanvas.Children.Clear();
+                                    MapSetup();
                                     //Game Go to Next Level
                                 }
                             }
@@ -345,8 +336,10 @@ namespace ierg3080_Bombman
                             {
                                 bombmaximum++;
                                 ItemsToRemove.Add(y);
+                                bomblabel.Content = bombmaximum;
                             }
                         }
+                        //player hit blastpowerup
                         if ((string)y.Tag == "blastpowerup")
                         {
                             Rect hitblastpowerup = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
@@ -354,18 +347,13 @@ namespace ierg3080_Bombman
                             {
                                 blastingpower++;
                                 ItemsToRemove.Add(y);
+                                blastingpowerlabel.Content = blastingpower;
                             }
                         }
                     }
                 }
             }
-            if (nextLv)
-            {
-                GameCanvas.Children.Clear();
-                MapSetup();
-                randomwallgenerate();
-                nextLv = false;
-            }
+
             if (MoveRight == true)
             {
                 Canvas.SetLeft(Player, Canvas.GetLeft(Player) + 20);
@@ -418,6 +406,19 @@ namespace ierg3080_Bombman
                 {
                     passbomb(y);
                 }*/
+            }
+
+            if (playerLife <= 0)
+            {
+                MessageBox.Show("Good Game" + Environment.NewLine + "You have attended level " + level);
+                // show the message box with the message inside of it
+                System.Windows.Application.Current.Shutdown();
+            }
+            if(level > 3)
+            {
+                MessageBox.Show("Good Game" + Environment.NewLine + "You have finish the highest level, level" + level);
+                // show the message box with the message inside of it
+                System.Windows.Application.Current.Shutdown();
             }
 
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -43,7 +44,6 @@ namespace ierg3080_Bombman
             Width = 20,
             Fill = Brushes.Yellow
         };
-
         public void MapSetup()
         {
             XGridNum = (uint)(GameCanvas.Width / GridSize);
@@ -249,7 +249,7 @@ namespace ierg3080_Bombman
                     Width = GridSize,
                     Fill = Brushes.Gray
                 };
-                position.Content = "level: " + level;
+                levellabel.Content = "level: " + level;
                 map[(int)location.Y / 20, (int)location.X / 20] = 'B';
                 Canvas.SetLeft(breakablewall, location.X);
                 Canvas.SetTop(breakablewall, location.Y);
