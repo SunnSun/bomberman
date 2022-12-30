@@ -26,7 +26,7 @@ namespace ierg3080_Bombman
     public partial class MainWindow
     {
         Rect Playerhitboxleft, Playerhitboxright, Playerhitboxup, Playerhitboxdown;
-        int enemeymovement = 1;
+        int[] enemeymovement = {1,1,1,1,1,1};
         int playerLife = 100;
         bool playerWithKey = false;
         int bombmaximum = 1;
@@ -122,18 +122,18 @@ namespace ierg3080_Bombman
                 NoUp = true;
             }
         }
-
-        int dir = 0;
+        int[] dir = new int[10];
         Random rnd = new Random();
+        
+        
         bool nextLv = false;
         private async void GameLoop(object sender, EventArgs e)
         {
-
             Playerhitboxleft = new Rect(Canvas.GetLeft(Player) - 20, Canvas.GetTop(Player), 10, 10);
             Playerhitboxdown = new Rect(Canvas.GetLeft(Player), Canvas.GetTop(Player) + 20, 10, 10);
             Playerhitboxup = new Rect(Canvas.GetLeft(Player), Canvas.GetTop(Player) - 20, 10, 10);
             Playerhitboxright = new Rect(Canvas.GetLeft(Player) + 20, Canvas.GetTop(Player), 10, 10);
-
+            int enemeyCount = 0;
             foreach (var x in GameCanvas.Children.OfType<Rectangle>())
             {
 
@@ -238,13 +238,12 @@ namespace ierg3080_Bombman
                     }*/
                 }
 
-
                 if ((string)x.Tag == "enemy")
                 {
-                    if (dir % 2 == 0)
-                        Canvas.SetTop(x, Canvas.GetTop(x) + 2 * enemeymovement);
+                    if (dir[enemeyCount] % 2 == 0)
+                        Canvas.SetTop(x, Canvas.GetTop(x) + 2 * enemeymovement[enemeyCount]);
                     else
-                        Canvas.SetLeft(x, Canvas.GetLeft(x) + 2 * enemeymovement);
+                        Canvas.SetLeft(x, Canvas.GetLeft(x) + 2 * enemeymovement[enemeyCount]);
                     Rect hitenemy = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
                     Rect hitenemy1 = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x) - 20, x.Width, x.Height + 40);
                     foreach (var y in GameCanvas.Children.OfType<Rectangle>())
@@ -254,12 +253,12 @@ namespace ierg3080_Bombman
                             Rect hitbreakableWall = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
                             if (hitbreakableWall.IntersectsWith(hitenemy))
                             {
-                                if (dir % 2 == 0)
-                                    Canvas.SetTop(x, Canvas.GetTop(x) - 2 * enemeymovement);
+                                if (dir[enemeyCount] % 2 == 0)
+                                    Canvas.SetTop(x, Canvas.GetTop(x) - 2 * enemeymovement[enemeyCount]);
                                 else
-                                    Canvas.SetLeft(x, Canvas.GetLeft(x) - 2 * enemeymovement);
-                                enemeymovement = enemeymovement * -1;
-                                dir = rnd.Next(0, 2);
+                                    Canvas.SetLeft(x, Canvas.GetLeft(x) - 2 * enemeymovement[enemeyCount]);
+                                enemeymovement[enemeyCount] = enemeymovement[enemeyCount] * -1;
+                                dir[enemeyCount] = rnd.Next(0, 2);
                             }
                         }
                         if ((string)y.Tag == "blast")
@@ -267,10 +266,11 @@ namespace ierg3080_Bombman
                             Rect hitblast = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
                             if (hitblast.IntersectsWith(hitenemy1))
                             {
-                                enemeymovement = enemeymovement * -1;
+                                enemeymovement[enemeyCount] = enemeymovement[enemeyCount] * -1;
                             }
                         }
                     }
+                    enemeyCount++;
                 }
                 if ((string)x.Tag == "player")
                 {

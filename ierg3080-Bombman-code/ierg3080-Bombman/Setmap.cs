@@ -72,6 +72,7 @@ namespace ierg3080_Bombman
                     map[row, col] = ' ';
                 }
             }
+            map[2, 1] = 'x';
             for (int row = 0; row < 25; row++)
             {
                 if (row == 1)
@@ -79,6 +80,7 @@ namespace ierg3080_Bombman
                     map[row, 0] = 'w';
                     map[row, 34] = 'w';
                     map[row, 1] = 'P';
+                    map[row, 2] = 'x';
                 }
                 else if (row % 2 == 1)
                 {
