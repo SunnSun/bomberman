@@ -31,7 +31,7 @@ namespace ierg3080_Bombman
 
         private void Bombexplode(double bombx, double bomby)
         {
-            togglebomb--;
+            if(togglebomb > 0)togglebomb--;
             toggleblast++;
             foreach (var y in GameCanvas.Children.OfType<Rectangle>())
             {
