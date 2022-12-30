@@ -29,9 +29,11 @@ namespace ierg3080_Bombman
         int blastingpower = 1;
         public List<Rectangle> BlastGrids = new List<Rectangle>();
 
+
         private void Bombexplode(double bombx, double bomby)
         {
-            togglebomb--;
+            if (togglebomb > 0) togglebomb--;
+            else togglebomb = 0;
             toggleblast++;
             foreach (var y in GameCanvas.Children.OfType<Rectangle>())
             {

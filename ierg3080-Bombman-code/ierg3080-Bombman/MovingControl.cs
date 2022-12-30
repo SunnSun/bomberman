@@ -10,6 +10,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 using System.Windows.Navigation;
@@ -30,7 +31,16 @@ namespace ierg3080_Bombman
         int playerLife = 100;
         bool playerWithKey = false;
         int bombmaximum = 1;
-        private async void keyreleased(object sender, KeyEventArgs e)
+        double affectedX, affectedY;
+        bool detonate = false;
+        private async void blastControl(double cX, double cY)
+        {
+            Bombexplode(cX, cY);
+            blasting(cX, cY);
+            await Task.Delay(1000);
+            blastremove(cX, cY);
+        }
+            private async void keyreleased(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.W)
             {
@@ -82,11 +92,7 @@ namespace ierg3080_Bombman
                     GameCanvas.Children.Add(Bomb);
                     togglebomb++;
                     await Task.Delay(2000);
-                    Bombexplode(Canvas.GetLeft(Bomb), Canvas.GetTop(Bomb));
-                    await Task.Delay(1);
-                    blasting(Canvas.GetLeft(Bomb), Canvas.GetTop(Bomb));
-                    await Task.Delay(1000);
-                    blastremove(Canvas.GetLeft(Bomb), Canvas.GetTop(Bomb));
+                    blastControl(Canvas.GetLeft(Bomb), Canvas.GetTop(Bomb));
                 }
             }
 
@@ -126,10 +132,10 @@ namespace ierg3080_Bombman
         int[] dir = new int[10];
         Random rnd = new Random();
         bool nextLv = false;
-        double affectedx, affectedy;
-        bool detonate = false;
-        private async void GameLoop(object sender, EventArgs e)
+        bool gameover = false;
+        private void GameLoop(object sender, EventArgs e)
         {
+            detonate = false; 
             Playerhitboxleft = new Rect(Canvas.GetLeft(Player) - 20, Canvas.GetTop(Player), 10, 10);
             Playerhitboxdown = new Rect(Canvas.GetLeft(Player), Canvas.GetTop(Player) + 20, 10, 10);
             Playerhitboxup = new Rect(Canvas.GetLeft(Player), Canvas.GetTop(Player) - 20, 10, 10);
@@ -181,31 +187,29 @@ namespace ierg3080_Bombman
                 if ((string)x.Tag == "Bomb")
                 {
                     Rect hitbomb = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
-
-
                     //Rect hitplayer = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
                     if (hitbomb.IntersectsWith(Playerhitboxleft) || hitbomb.IntersectsWith(Playerhitboxright) || hitbomb.IntersectsWith(Playerhitboxup) || hitbomb.IntersectsWith(Playerhitboxdown))
                     {
                         x.Tag = "plantedbomb";
                     }
                     
-                    /*foreach (var y in GameCanvas.Children.OfType<Rectangle>())
+                    foreach (var y in GameCanvas.Children.OfType<Rectangle>())
                     {
                         if ((string)y.Tag == "blast")
                         {
+                            detonate = true;
                             Rect hitblast = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
                             if (hitbomb.IntersectsWith(hitblast))
                             {
-                                affectedx = Canvas.GetLeft(x);
-                                affectedy = Canvas.GetTop(x);
-                                detonate = true;
+                                affectedX = Canvas.GetLeft(x);
+                                affectedY = Canvas.GetTop(x);
                                 //Bombexplode(Canvas.GetLeft(y), Canvas.GetTop(y));
                                 //blasting(Canvas.GetLeft(y), Canvas.GetTop(y));
                                 //await Task.Delay(1000);
                                 //blastremove(Canvas.GetLeft(y), Canvas.GetTop(y));
                             }
                         }
-                    }*/
+                    }
                 }
                 if ((string)x.Tag == "plantedbomb")
                 {
@@ -226,23 +230,23 @@ namespace ierg3080_Bombman
                     {
                         MoveDown = false;
                     }
-                    /*foreach (var y in GameCanvas.Children.OfType<Rectangle>())
+                    foreach (var y in GameCanvas.Children.OfType<Rectangle>())
                     {
                         if ((string)y.Tag == "blast")
                         {
+                            detonate = true;
                             Rect hitblast = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
                             if (hitplantedbomb.IntersectsWith(hitblast))
                             {
-                                affectedx = Canvas.GetLeft(x);
-                                affectedy = Canvas.GetTop(x);
-                                detonate = true;
+                                affectedX = Canvas.GetLeft(x);
+                                affectedY = Canvas.GetTop(x);
                                 //Bombexplode(Canvas.GetLeft(y), Canvas.GetTop(y));
                                 //blasting(Canvas.GetLeft(y), Canvas.GetTop(y));
                                 //await Task.Delay(1000);
                                 //blastremove(Canvas.GetLeft(y), Canvas.GetTop(y));
                             }
                         }
-                    }*/
+                    }
                 }
 
                 if ((string)x.Tag == "enemy")
@@ -364,14 +368,11 @@ namespace ierg3080_Bombman
                     }
                 }
             }
-            /*if (detonate)
+            if (detonate)
             {
-                Bombexplode(affectedx, affectedy);
-                blasting(affectedx, affectedy);
-                await Task.Delay(1000);
-                blastremove(affectedx, affectedy);
+                blastControl(affectedX, affectedY);
                 detonate= false;
-            }*/
+            }
             if (nextLv)
             {
                 nextLv = false;
@@ -435,11 +436,13 @@ namespace ierg3080_Bombman
                 }*/
             }
 
-            if (playerLife <= 0)
+            if (playerLife <= 0 && gameover == false)
             {
+                gameover = true;
                 MessageBox.Show("Good Game" + Environment.NewLine + "You have attended level " + level);
                 // show the message box with the message inside of it
                 System.Windows.Application.Current.Shutdown();
+
             }
             if(level > 3)
             {
