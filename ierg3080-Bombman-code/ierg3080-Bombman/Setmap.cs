@@ -256,8 +256,8 @@ namespace ierg3080_Bombman
 
                 while (!IsValidLocation)
                 {
-                    location.X = rand.Next(1, (int)XGridNum - 1) * GridSize;
-                    location.Y = rand.Next(1, (int)YGridNum - 1) * GridSize;
+                    location.X = rand.Next(1, (int)XGridNum) * GridSize;
+                    location.Y = rand.Next(1, (int)YGridNum) * GridSize;
                     /* while (map[(int)location.X][(int)location.Y] != ' ')
                      {
                          location.X = rand.Next(0, (int)XGridNum) * GridSize;

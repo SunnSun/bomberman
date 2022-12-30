@@ -12,18 +12,26 @@
 
         </Canvas>
         <Grid HorizontalAlignment="Center" Height="69" Margin="0,531,0,0" VerticalAlignment="Top" Width="800" Background="LightGray">
-            <Image Height="60" Width="60" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="100,0,0,0" Source="/player.png"/>
-            <Image Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="155,0,0,0" Source="/heart.png"/>
-            <Image Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="275,0,0,0" Source="/blastpowerup.png"/>
-            <Image Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="225,0,0,0" Source="/bomb.jpg"/>
-            <Image Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="340,0,0,0" Source="/key.png"/>
-            <Image Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="400,0,0,0" Source="/door.png"/>
-            <Label x:Name="keylabel" Content="0" HorizontalAlignment="Left" Margin="370,0,0,0" VerticalAlignment="Center" FontFamily="Arial Black"/>
-            <Label x:Name="doorlabel" Content="0" HorizontalAlignment="Left" Margin="430,0,0,0" VerticalAlignment="Center" FontFamily="Arial Black"/>
-            <Label x:Name="Lifelabel" Content="100" HorizontalAlignment="Left" Margin="180,0,0,0" VerticalAlignment="Center" FontFamily="Arial Black"/>
-            <Label x:Name="blastingpowerlabel" Content="1" HorizontalAlignment="Left" Margin="300,0,0,0" VerticalAlignment="Center" FontFamily="Arial Black"/>
-            <Label x:Name="bomblabel" Content="1" HorizontalAlignment="Left" Margin="250,0,0,0" VerticalAlignment="Center" FontFamily="Arial Black"/>
-            <Label x:Name="levellabel" Content="level : 1" HorizontalAlignment="Left" Margin="480,0,0,0" VerticalAlignment="Center" FontFamily="Arial Black" FontSize="16"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Image Height="60" Width="60" HorizontalAlignment="Center" VerticalAlignment="Center" Source="/player.png"/>
+                <Separator Width="30" Background="Transparent"/>
+            <Image Height="25" Width="25" HorizontalAlignment="Center" VerticalAlignment="Center" Source="/heart.png"/>
+            <Label x:Name="Lifelabel" Content="100" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Arial Black"/>
+                <Separator Width="30" Background="Transparent"/>
+            <Image Height="25" Width="25" HorizontalAlignment="Center" VerticalAlignment="Center" Source="/bomb.jpg"/>
+            <Label x:Name="bomblabel" Content="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Arial Black"/>
+                <Separator Width="30" Background="Transparent"/>
+                <Image Height="25" Width="25" HorizontalAlignment="Center" VerticalAlignment="Center" Source="/blastpowerup.png"/>
+                <Label x:Name="blastingpowerlabel" Content="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Arial Black"/>
+                <Separator Width="30" Background="Transparent"/>
+            <Image Height="25" Width="25" HorizontalAlignment="Center" VerticalAlignment="Center" Source="/key.png"/>
+            <Label x:Name="keylabel" Content="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Arial Black"/>
+                <Separator Width="30" Background="Transparent"/>
+            <Image Height="25" Width="25" HorizontalAlignment="Center" VerticalAlignment="Center" Source="/door.png"/>
+            <Label x:Name="doorlabel" Content="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Arial Black"/>
+                <Separator Width="30" Background="Transparent"/>
+            <Label x:Name="levellabel" Content="level : 1" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Arial Black" FontSize="16"/>
+                </StackPanel>
         </Grid>
     </Grid>
 

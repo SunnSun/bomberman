@@ -83,6 +83,7 @@ namespace ierg3080_Bombman
                     togglebomb++;
                     await Task.Delay(2000);
                     Bombexplode(Canvas.GetLeft(Bomb), Canvas.GetTop(Bomb));
+                    await Task.Delay(1);
                     blasting(Canvas.GetLeft(Bomb), Canvas.GetTop(Bomb));
                     await Task.Delay(1000);
                     blastremove(Canvas.GetLeft(Bomb), Canvas.GetTop(Bomb));
@@ -124,9 +125,9 @@ namespace ierg3080_Bombman
         }
         int[] dir = new int[10];
         Random rnd = new Random();
-        
-        
         bool nextLv = false;
+        double affectedx, affectedy;
+        bool detonate = false;
         private async void GameLoop(object sender, EventArgs e)
         {
             Playerhitboxleft = new Rect(Canvas.GetLeft(Player) - 20, Canvas.GetTop(Player), 10, 10);
@@ -187,18 +188,21 @@ namespace ierg3080_Bombman
                     {
                         x.Tag = "plantedbomb";
                     }
-                    /*
-                    foreach (var y in GameCanvas.Children.OfType<Rectangle>())
+                    
+                    /*foreach (var y in GameCanvas.Children.OfType<Rectangle>())
                     {
                         if ((string)y.Tag == "blast")
                         {
                             Rect hitblast = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
                             if (hitbomb.IntersectsWith(hitblast))
                             {
-                                Bombexplode(Canvas.GetLeft(y), Canvas.GetTop(y));
-                                blasting(Canvas.GetLeft(y), Canvas.GetTop(y));
-                                await Task.Delay(1000);
-                                blastremove(Canvas.GetLeft(y), Canvas.GetTop(y));
+                                affectedx = Canvas.GetLeft(x);
+                                affectedy = Canvas.GetTop(x);
+                                detonate = true;
+                                //Bombexplode(Canvas.GetLeft(y), Canvas.GetTop(y));
+                                //blasting(Canvas.GetLeft(y), Canvas.GetTop(y));
+                                //await Task.Delay(1000);
+                                //blastremove(Canvas.GetLeft(y), Canvas.GetTop(y));
                             }
                         }
                     }*/
@@ -229,7 +233,10 @@ namespace ierg3080_Bombman
                             Rect hitblast = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
                             if (hitplantedbomb.IntersectsWith(hitblast))
                             {
-                                Bombexplode(Canvas.GetLeft(y), Canvas.GetTop(y));
+                                affectedx = Canvas.GetLeft(x);
+                                affectedy = Canvas.GetTop(x);
+                                detonate = true;
+                                //Bombexplode(Canvas.GetLeft(y), Canvas.GetTop(y));
                                 //blasting(Canvas.GetLeft(y), Canvas.GetTop(y));
                                 //await Task.Delay(1000);
                                 //blastremove(Canvas.GetLeft(y), Canvas.GetTop(y));
@@ -357,6 +364,14 @@ namespace ierg3080_Bombman
                     }
                 }
             }
+            /*if (detonate)
+            {
+                Bombexplode(affectedx, affectedy);
+                blasting(affectedx, affectedy);
+                await Task.Delay(1000);
+                blastremove(affectedx, affectedy);
+                detonate= false;
+            }*/
             if (nextLv)
             {
                 nextLv = false;
@@ -400,7 +415,7 @@ namespace ierg3080_Bombman
                 blastremove();
             }*/
 
-            foreach (Rectangle x in ItemsToRemove)
+                    foreach (Rectangle x in ItemsToRemove)
             {
                 GameCanvas.Children.Remove(x);
                 //please add the following code, after change bomb to rectangle

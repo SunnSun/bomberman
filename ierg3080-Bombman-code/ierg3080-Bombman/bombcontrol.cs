@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -298,11 +299,11 @@ namespace ierg3080_Bombman
                 generateDoor(wallx, wally, width, height);
                 isGeneratedDoor = true;
             }
-            else */if (itemSpawnProbiblity > 90 && itemSpawnProbiblity <= 95)
+            else */if (itemSpawnProbiblity > 90 && itemSpawnProbiblity <= 95 && map[(int)wally/20,(int)wallx/20] == 'B' )
             {
                 generateBombPowerUp(wallx, wally, width, height);
             }
-            else if (itemSpawnProbiblity > 95 && itemSpawnProbiblity <= 100)
+            else if (itemSpawnProbiblity > 95 && itemSpawnProbiblity <= 100 && map[(int)wally / 20, (int)wallx / 20] == 'B')
             {
                 generateBlastPowerUp(wallx, wally, width, height);
             }
