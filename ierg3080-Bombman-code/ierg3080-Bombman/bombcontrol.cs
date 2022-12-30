@@ -29,11 +29,9 @@ namespace ierg3080_Bombman
         int blastingpower = 1;
         public List<Rectangle> BlastGrids = new List<Rectangle>();
 
-
         private void Bombexplode(double bombx, double bomby)
         {
-            if (togglebomb > 0) togglebomb--;
-            else togglebomb = 0;
+            togglebomb--;
             toggleblast++;
             foreach (var y in GameCanvas.Children.OfType<Rectangle>())
             {
@@ -170,7 +168,7 @@ namespace ierg3080_Bombman
                         ItemsToRemove.Add(y);
                     }
                 }
-                if ((string)y.Tag == "breakablewall" && map[(int)Canvas.GetTop(y)/20,(int)Canvas.GetLeft(y)/20] == 'D')
+                if ((string)y.Tag == "breakablewall" && map[(int)Canvas.GetTop(y) / 20, (int)Canvas.GetLeft(y) / 20] == 'D')
                 {
                     Rect hitblastpowerup = new Rect(Canvas.GetLeft(y) + 5, Canvas.GetTop(y) + 5, 10, 10);
                     if (hitblastpowerup.IntersectsWith(hitblast))
@@ -187,7 +185,7 @@ namespace ierg3080_Bombman
                         ItemsToRemove.Add(y);
                         generateKey(Canvas.GetLeft(y), Canvas.GetTop(y), width, height);
                     }
-                    
+
                 }
             }
         }
@@ -279,12 +277,10 @@ namespace ierg3080_Bombman
             {
                 generateKey(wallx, wally, width, height);
             }
-
             if (countbreakablewall == 1 && isGeneratedDoor == true && isGeneratedKey == false)
             {
                 generateKey(wallx, wally, width, height);
             }
-
             if (countbreakablewall == 1 && isGeneratedDoor == false && isGeneratedKey == true)
             {
                 generateDoor(wallx, wally, width, height);
@@ -301,7 +297,8 @@ namespace ierg3080_Bombman
                 generateDoor(wallx, wally, width, height);
                 isGeneratedDoor = true;
             }
-            else */if (itemSpawnProbiblity > 90 && itemSpawnProbiblity <= 95 && map[(int)wally/20,(int)wallx/20] == 'B' )
+            else */
+            if (itemSpawnProbiblity > 90 && itemSpawnProbiblity <= 95 && map[(int)wally / 20, (int)wallx / 20] == 'B')
             {
                 generateBombPowerUp(wallx, wally, width, height);
             }
