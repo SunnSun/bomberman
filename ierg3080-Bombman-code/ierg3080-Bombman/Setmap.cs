@@ -27,7 +27,7 @@ namespace ierg3080_Bombman
     {
         public uint GridSize = 20; // size of the food and snake's body
         public uint XGridNum, YGridNum;
-        char[,] map = new char[25, 34];
+        char[,] map = new char[25, 35];
         Brush BodyBrush = new SolidColorBrush(Colors.Black);
         Brush EnemeyBrush = new SolidColorBrush(Colors.DarkRed);
         Brush FoodBrush = new SolidColorBrush(Colors.Red);
@@ -67,7 +67,7 @@ namespace ierg3080_Bombman
             //randomwallclear();
             for (int row = 0; row < 25; row++)
             {
-                for (int col = 0; col < 34; col++)
+                for (int col = 0; col < 35; col++)
                 {
                     map[row, col] = ' ';
                 }
@@ -77,15 +77,15 @@ namespace ierg3080_Bombman
                 if (row == 1)
                 {
                     map[row, 0] = 'w';
-                    map[row, 33] = 'w';
+                    map[row, 34] = 'w';
                     map[row, 1] = 'P';
                 }
                 else if (row % 2 == 1)
                 {
                     map[row, 0] = 'w';
-                    map[row, 33] = 'w';
+                    map[row, 34] = 'w';
                 }
-                else for (int col = 0; col < 34; col++)
+                else for (int col = 0; col < 35; col++)
                     {
                         if (row == 0 || row == 24)
                         {
@@ -95,7 +95,7 @@ namespace ierg3080_Bombman
                         {
                             map[row, col] = 'w';
                         }
-                        if (col == 33)
+                        if (col == 34)
                         {
                             map[row, col] = 'w';
                         }
@@ -107,25 +107,25 @@ namespace ierg3080_Bombman
                 do
                 {
                     x = rnd.Next(1, 23);
-                    y = rnd.Next(1, 32);
+                    y = rnd.Next(1, 33);
                 } while (map[x, y] != ' ');
                 map[x, y] = 'E';
             }
             do
             {
                 x = rnd.Next(1, 23);
-                y = rnd.Next(1, 32);
+                y = rnd.Next(1, 33);
             } while (map[x, y] != ' ');
             map[x, y] = 'D';
             do
             {
                 x = rnd.Next(1, 23);
-                y = rnd.Next(1, 32);
+                y = rnd.Next(1, 33);
             } while (map[x, y] != ' ');
             map[x, y] = 'K';
             for (int j = 0; j< 25; j++)
             {
-                for(int i = 0; i<34; i++)
+                for(int i = 0; i<35; i++)
                 {
                     if (map[j, i] == 'w')
                     {
@@ -294,7 +294,7 @@ namespace ierg3080_Bombman
                 Rectangle breakablewall = new Rectangle
                 {
                     Tag = "breakablewall",
-                    Uid = (location.X + location.Y * 34).ToString(),
+                    Uid = (location.X + location.Y * 35).ToString(),
                     Height = GridSize,
                     Width = GridSize,
                     Fill = new ImageBrush

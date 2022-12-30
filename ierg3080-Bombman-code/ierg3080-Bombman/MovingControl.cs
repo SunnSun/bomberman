@@ -323,10 +323,10 @@ namespace ierg3080_Bombman
                                     blastingpowerlabel.Content = 1;
                                     bombmaximum = 1;
                                     bomblabel.Content = 1;
-                                    isGeneratedDoor = false;
                                     doorlabel.Content = 0;
-                                    isGeneratedKey = false;
                                     keylabel.Content = 0;
+                                    playerLife = 100;
+                                    Lifelabel.Content = playerLife;
                                     nextLv = true;
                                     //Game Go to Next Level
                                 }

@@ -263,8 +263,6 @@ namespace ierg3080_Bombman
             await Task.Delay(1000);
             GameCanvas.Children.Add(BlastPowerUp);
         }
-        bool isGeneratedKey, isGeneratedDoor;
-        int countbreakablewall = 0;
         private void thingsBehindBlocks(double wallx, double wally, int width, int height)
         {
             /*foreach (var y in GameCanvas.Children.OfType<Rectangle>())

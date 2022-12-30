@@ -54,8 +54,6 @@ namespace ierg3080_Bombman
             playerWithKey = false;
             blastingpower = 1;
             bombmaximum = 1;
-            isGeneratedDoor = false;
-            isGeneratedKey = false;
             GameCanvas.Children.Clear();
             MapSetup();
             Canvas.SetLeft(Player, GridSize + 5);
