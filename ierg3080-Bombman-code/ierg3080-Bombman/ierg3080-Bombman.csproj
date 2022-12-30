@@ -12,20 +12,30 @@
     <None Remove="blast.png" />
     <None Remove="blastpowerup.png" />
     <None Remove="bomb.jpg" />
+    <None Remove="bombpowerup.png" />
+    <None Remove="breakablewall.png" />
     <None Remove="door.png" />
+    <None Remove="enemy.png" />
     <None Remove="heart.png" />
     <None Remove="key.png" />
     <None Remove="player.png" />
+    <None Remove="wall.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="blast.png" />
     <Resource Include="blastpowerup.png" />
     <Resource Include="bomb.jpg" />
+    <Resource Include="bombpowerup.png" />
+    <Resource Include="breakablewall.png" />
     <Resource Include="door.png" />
+    <Resource Include="enemy.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="heart.png" />
     <Resource Include="key.png" />
     <Resource Include="player.png" />
+    <Resource Include="wall.png" />
   </ItemGroup>
 
 </Project>

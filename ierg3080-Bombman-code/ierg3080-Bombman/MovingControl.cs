@@ -71,8 +71,12 @@ namespace ierg3080_Bombman
                         Width = 20,
                         //Stroke = Brushes.Black,
                         //StrokeThickness = 1,
-                        Fill = Brushes.Blue
-                    };
+                        //Fill = Brushes.Blue
+                        Fill = new ImageBrush
+                        {
+                            ImageSource = new BitmapImage(new Uri(@"pack://application:,,,/ierg3080-Bombman;component/bomb.jpg", UriKind.Absolute))
+                        }
+                };
                     Canvas.SetTop(Bomb, Canvas.GetTop(Player)-2);
                     Canvas.SetLeft(Bomb, Canvas.GetLeft(Player) - 2);
                     GameCanvas.Children.Add(Bomb);
@@ -121,6 +125,7 @@ namespace ierg3080_Bombman
 
         int dir = 0;
         Random rnd = new Random();
+        bool nextLv = false;
         private async void GameLoop(object sender, EventArgs e)
         {
 
@@ -322,8 +327,7 @@ namespace ierg3080_Bombman
                                     doorlabel.Content = 0;
                                     isGeneratedKey = false;
                                     keylabel.Content = 0;
-                                    GameCanvas.Children.Clear();
-                                    MapSetup();
+                                    nextLv = true;
                                     //Game Go to Next Level
                                 }
                             }
@@ -353,7 +357,15 @@ namespace ierg3080_Bombman
                     }
                 }
             }
-
+            if (nextLv)
+            {
+                nextLv = false;
+                GameCanvas.Children.Clear();
+                MapSetup();
+                randomwallgenerate();
+                
+            }
+            
             if (MoveRight == true)
             {
                 Canvas.SetLeft(Player, Canvas.GetLeft(Player) + 20);

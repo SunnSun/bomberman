@@ -45,7 +45,12 @@ namespace ierg3080_Bombman
             Tag = "player",
             Height = 17,
             Width = 17,
-            Fill = Brushes.Yellow,
+            Fill = new ImageBrush
+            {
+                ImageSource = new BitmapImage(new Uri(@"pack://application:,,,/ierg3080-Bombman;component/player.png", UriKind.Absolute))
+
+            }
+            //Fill = Brushes.Yellow,
             //ImageBrush Player = new ImageBrush(),
             //BitmapImage bmi = new BitmapImage(new Uri(@"/WpfImageApp;component/Images/Penguins.jpg", UriKind.Relative));
             //ib.ImageSource = bmi;
@@ -117,7 +122,11 @@ namespace ierg3080_Bombman
                             Tag = "wall",
                             Height = GridSize,
                             Width = GridSize,
-                            Fill = BodyBrush
+                            Fill = new ImageBrush
+                            {
+                                ImageSource = new BitmapImage(new Uri(@"pack://application:,,,/ierg3080-Bombman;component/wall.png", UriKind.Absolute))
+                            }
+                            //Fill = BodyBrush
                         };
                         Canvas.SetLeft(wall, i * GridSize);
                         Canvas.SetTop(wall, j * GridSize);
@@ -140,7 +149,11 @@ namespace ierg3080_Bombman
                             Tag = "enemy",
                             Height = 15,
                             Width = 15,
-                            Fill = EnemeyBrush
+                            Fill = new ImageBrush
+                            {
+                                ImageSource = new BitmapImage(new Uri(@"pack://application:,,,/ierg3080-Bombman;component/enemy.png", UriKind.Absolute))
+                            }
+                            //Fill = EnemeyBrush
                         };
                         Canvas.SetLeft(enemy, i * GridSize + 1);
                         Canvas.SetTop(enemy, j * GridSize + 1);
@@ -236,7 +249,11 @@ namespace ierg3080_Bombman
                     Uid = (location.X + location.Y * 34).ToString(),
                     Height = GridSize,
                     Width = GridSize,
-                    Fill = Brushes.Gray
+                    Fill = new ImageBrush
+                    {
+                        ImageSource = new BitmapImage(new Uri(@"pack://application:,,,/ierg3080-Bombman;component/breakablewall.png", UriKind.Absolute))
+                    }
+                    //Fill = Brushes.Gray
                 };
                 levellabel.Content = "level: " + level;
                 map[(int)location.Y / 20, (int)location.X / 20] = 'B';

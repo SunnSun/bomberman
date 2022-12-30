@@ -57,7 +57,12 @@ namespace ierg3080_Bombman
                     Tag = "blast",
                     Height = 20,
                     Width = 20,
-                    Fill = Brushes.Red
+                    Fill = new ImageBrush
+                    {
+                        ImageSource = new BitmapImage(new Uri(@"pack://application:,,,/ierg3080-Bombman;component/blast.png", UriKind.Absolute))
+
+                    }
+                    //Fill = Brushes.Red
                 };
                 blast.Add(rec);
             }
@@ -172,8 +177,12 @@ namespace ierg3080_Bombman
                 Tag = "key",
                 Height = height,
                 Width = width,
+                Fill = new ImageBrush
+                {
+                    ImageSource = new BitmapImage(new Uri(@"pack://application:,,,/ierg3080-Bombman;component/key.png", UriKind.Absolute))
 
-                Fill = Brushes.Blue
+                }
+                //Fill = Brushes.Blue
             };
             Canvas.SetLeft(Key, wallx);
             Canvas.SetTop(Key, wally);
@@ -188,7 +197,8 @@ namespace ierg3080_Bombman
                 Tag = "door",
                 Height = height,
                 Width = width,
-                Fill = Brushes.Brown
+                Fill = new ImageBrush { ImageSource = new BitmapImage(new Uri(@"pack://application:,,,/ierg3080-Bombman;component/door.png", UriKind.Absolute)) }
+                //Fill = Brushes.Brown
             };
             Canvas.SetLeft(Door, wallx);
             Canvas.SetTop(Door, wally);
@@ -203,7 +213,12 @@ namespace ierg3080_Bombman
                 Tag = "bombpowerup",
                 Height = height,
                 Width = width,
-                Fill = Brushes.Pink
+                Fill = new ImageBrush
+                {
+                    ImageSource = new BitmapImage(new Uri(@"pack://application:,,,/ierg3080-Bombman;component/bombpowerup.png", UriKind.Absolute))
+
+                }
+                //Fill = Brushes.Pink
             };
             Canvas.SetLeft(BombPowerUp, wallx);
             Canvas.SetTop(BombPowerUp, wally);
@@ -217,7 +232,12 @@ namespace ierg3080_Bombman
                 Tag = "blastpowerup",
                 Height = height,
                 Width = width,
-                Fill = Brushes.Green
+                Fill = new ImageBrush
+                {
+                    ImageSource = new BitmapImage(new Uri(@"pack://application:,,,/ierg3080-Bombman;component/blastpowerup.png", UriKind.Absolute))
+
+                }
+                //Fill = Brushes.Green
             };
             Canvas.SetLeft(BlastPowerUp, wallx);
             Canvas.SetTop(BlastPowerUp, wally);
