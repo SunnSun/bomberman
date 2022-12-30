@@ -138,8 +138,8 @@ namespace ierg3080_Bombman
                         playerx = i;
                         playery = j;
                         GameCanvas.Children.Add(Player);
-                        Canvas.SetLeft(Player, i * GridSize+2);
-                        Canvas.SetTop(Player, j * GridSize+2);
+                        Canvas.SetLeft(Player, i * GridSize+3);
+                        Canvas.SetTop(Player, j * GridSize+3);
 
                     }
                     if (map[j, i] == 'E')

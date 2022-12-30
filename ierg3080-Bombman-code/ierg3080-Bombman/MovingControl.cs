@@ -29,7 +29,7 @@ namespace ierg3080_Bombman
         int enemeymovement = 1;
         int playerLife = 100;
         bool playerWithKey = false;
-        int bombmaximum = 2;
+        int bombmaximum = 1;
         private async void keyreleased(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.W)
