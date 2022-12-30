@@ -111,7 +111,19 @@ namespace ierg3080_Bombman
                 } while (map[x, y] != ' ');
                 map[x, y] = 'E';
             }
-            for(int j = 0; j< 25; j++)
+            do
+            {
+                x = rnd.Next(1, 23);
+                y = rnd.Next(1, 32);
+            } while (map[x, y] != ' ');
+            map[x, y] = 'D';
+            do
+            {
+                x = rnd.Next(1, 23);
+                y = rnd.Next(1, 32);
+            } while (map[x, y] != ' ');
+            map[x, y] = 'K';
+            for (int j = 0; j< 25; j++)
             {
                 for(int i = 0; i<34; i++)
                 {
@@ -159,6 +171,42 @@ namespace ierg3080_Bombman
                         Canvas.SetTop(enemy, j * GridSize + 1);
                         Panel.SetZIndex(enemy, 1);
                         GameCanvas.Children.Add(enemy);
+                    }
+                    if (map[j, i] == 'D')
+                    {
+                        Rectangle Door = new Rectangle
+                        {
+                            Tag = "breakablewall",
+                            Height = 20,
+                            Width = 20,
+                            Fill = new ImageBrush
+                            {
+                                ImageSource = new BitmapImage(new Uri(@"pack://application:,,,/ierg3080-Bombman;component/breakablewall.png", UriKind.Absolute))
+                            }
+                            //Fill = EnemeyBrush
+                        };
+                        Canvas.SetLeft(Door, i * GridSize + 1);
+                        Canvas.SetTop(Door, j * GridSize + 1);
+                        Panel.SetZIndex(Door, 1);
+                        GameCanvas.Children.Add(Door);
+                    }
+                    if (map[j, i] == 'K')
+                    {
+                        Rectangle Key = new Rectangle
+                        {
+                            Tag = "breakablewall",
+                            Height = 20,
+                            Width = 20,
+                            Fill = new ImageBrush
+                            {
+                                ImageSource = new BitmapImage(new Uri(@"pack://application:,,,/ierg3080-Bombman;component/breakablewall.png", UriKind.Absolute))
+                            }
+                            //Fill = EnemeyBrush
+                        };
+                        Canvas.SetLeft(Key, i * GridSize + 1);
+                        Canvas.SetTop(Key, j * GridSize + 1);
+                        Panel.SetZIndex(Key, 1);
+                        GameCanvas.Children.Add(Key);
                     }
                 }
             }

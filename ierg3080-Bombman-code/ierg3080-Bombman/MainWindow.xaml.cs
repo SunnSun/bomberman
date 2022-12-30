@@ -67,11 +67,5 @@ namespace ierg3080_Bombman
             //GameTimer.Start();
             randomwallgenerate();
         }
-
-        
-        
-
-        //testing code change
-        //testing code change #2
     }
 }

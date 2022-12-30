@@ -167,6 +167,25 @@ namespace ierg3080_Bombman
                         ItemsToRemove.Add(y);
                     }
                 }
+                if ((string)y.Tag == "breakablewall" && map[(int)Canvas.GetTop(y)/20,(int)Canvas.GetLeft(y)/20] == 'D')
+                {
+                    Rect hitblastpowerup = new Rect(Canvas.GetLeft(y) + 5, Canvas.GetTop(y) + 5, 10, 10);
+                    if (hitblastpowerup.IntersectsWith(hitblast))
+                    {
+                        ItemsToRemove.Add(y);
+                        generateDoor(Canvas.GetLeft(y), Canvas.GetTop(y), width, height);
+                    }
+                }
+                if ((string)y.Tag == "breakablewall" && map[(int)Canvas.GetTop(y) / 20, (int)Canvas.GetLeft(y) / 20] == 'K')
+                {
+                    Rect hitblastpowerup = new Rect(Canvas.GetLeft(y) + 5, Canvas.GetTop(y) + 5, 10, 10);
+                    if (hitblastpowerup.IntersectsWith(hitblast))
+                    {
+                        ItemsToRemove.Add(y);
+                        generateKey(Canvas.GetLeft(y), Canvas.GetTop(y), width, height);
+                    }
+                    
+                }
             }
         }
 
@@ -248,7 +267,7 @@ namespace ierg3080_Bombman
         int countbreakablewall = 0;
         private void thingsBehindBlocks(double wallx, double wally, int width, int height)
         {
-            foreach (var y in GameCanvas.Children.OfType<Rectangle>())
+            /*foreach (var y in GameCanvas.Children.OfType<Rectangle>())
             {
                 if ((string)y.Tag == "breakablewall")
                 {
@@ -269,9 +288,9 @@ namespace ierg3080_Bombman
             {
                 generateDoor(wallx, wally, width, height);
             }
-
+            */
             int itemSpawnProbiblity = rand.Next(1, 100);
-            if (itemSpawnProbiblity > 80 && itemSpawnProbiblity <= 85 && isGeneratedKey == false)
+            /*if (itemSpawnProbiblity > 80 && itemSpawnProbiblity <= 85 && isGeneratedKey == false)
             {
                 generateKey(wallx, wally, width, height);
                 isGeneratedKey = true;
@@ -281,7 +300,7 @@ namespace ierg3080_Bombman
                 generateDoor(wallx, wally, width, height);
                 isGeneratedDoor = true;
             }
-            else if (itemSpawnProbiblity > 90 && itemSpawnProbiblity <= 95)
+            else */if (itemSpawnProbiblity > 90 && itemSpawnProbiblity <= 95)
             {
                 generateBombPowerUp(wallx, wally, width, height);
             }
